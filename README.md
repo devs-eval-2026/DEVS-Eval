@@ -1,5 +1,3 @@
-Vi a estrutura do repositório. Tem as pastas `data`, `eval`, `misc`, `prompt_templates`, `rag` e o ficheiro `dataset.py`. Aqui está o README:
-
 ```markdown
 # DEVS-Eval
 
