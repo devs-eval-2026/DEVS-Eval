@@ -7,7 +7,6 @@ MS4 Me modeling environment.
 
 ## Repository Structure
 
-```
 DEVS-Eval/
 ├── data/                   # Dataset files (CSV)
 ├── eval/                   # Evaluation pipeline scripts
@@ -20,7 +19,7 @@ DEVS-Eval/
 ├── misc/                   # Ablation //not necessary for validation pipeline
 ├── dataset.py              # Dataset loading script
 └── README.md
-```
+
 
 ## Dataset
 
@@ -38,7 +37,7 @@ It consists of 181 human-curated tasks across 10 DEVS categories, each containin
 
 ```bash
 pip install -r requirements.txt
-```
+
 
 Required: Python 3.8+, OpenAI API key, Google API key (for Gemini), Replicate API key
 (for open-source models), and MS4 Me installed locally for evaluation.
@@ -52,14 +51,14 @@ from datasets import load_dataset
 
 dataset = load_dataset("devs-eval-2026/DEVS-Eval")
 df = dataset["train"].to_pandas()
-```
+
 
 Or load locally:
 
 ```python
 import pandas as pd
 df = pd.read_csv("data/devs_eval.csv")
-```
+
 
 ### 2. Run generation
 
@@ -69,7 +68,7 @@ Set your API keys:
 export OPENAI_API_KEY=your_key
 export GOOGLE_API_KEY=your_key
 export REPLICATE_API_TOKEN=your_key
-```
+
 
 Run a model with a prompting strategy:
 
@@ -78,7 +77,7 @@ python eval/run_eval.py \
     --model gpt-5.4 \
     --strategy cot \
     --output results/gpt54_cot.csv
-```
+
 
 Available `--model` options: `gpt-5.4`, `gpt-5.3-codex`, `gemini-2.5-flash`,
 `codellama-7b`, `codellama-34b`, `wizardcoder-33b`
@@ -91,13 +90,13 @@ Available `--strategy` options: `zero_shot`, `few_shot_2`, `few_shot_4`, `cot`,
 ```bash
 python rag/build_index.py      # builds the vector database from reference documents
 python eval/run_eval.py --model gpt-5.4 --strategy rag --output results/gpt54_rag.csv
-```
+
 
 ### 4. Evaluate results
 
 ```bash
 python eval/compute_metrics.py --results results/gpt54_cot.csv
-```
+
 
 This outputs pass@1, BLEU, and CosSim scores per model and category.
 
