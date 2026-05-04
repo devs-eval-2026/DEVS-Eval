@@ -1,0 +1,98 @@
+Here are a few examples:
+
+Example prompt 1: Create a System Entity Structure (SES) for a smart building coalition called 
+SmartBuildingCoalition5 that includes rooms L1Room1-5, central units HBCU1 and LBCU1, and maps 
+the ActivateAlarm message flow from rooms to LBCU1 via Terminal Service Boards (Tsb). Then, create an atomic 
+DEVS model for a sensor node that periodically outputs Power Level and Visual Perception, including custom 
+coordinate types and Java initialization for random values.
+Example output 1:
+SES:
+
+From the smartBuildingCoalition5 perspective, SmartBuildingCoalition5 is made of L1Room1, L1Room2, L1Room3, L1Room4, L1Room5, L2Room1, L2Room2, L2Room3, L2Room4, L2Room5, L2Room6, L2Room7, L2Room8, L2Room9, L2Room10, L1FireSystem, L1LightingSystem, HBCU1, Tsb111, Tsb112, Tsb113, Tsb114, Tsb115, Tsb116, Tsb117, Tsb118, Tsb119, Tsb1110, Tsb1111, Tsb1112, Tsb1113, Tsb1114, Tsb1115, Tsb1116, Tsb1117, Tsb1118, Tsb1119, Tsb1120, L5Room1, L5Room2, L5Room3, L5Room4, L5Room5, L6Room1, L6Room2, L6Room3, L6Room4, L6Room5, L6Room6, L6Room7, L6Room8, L6Room9, L6Room10, L1FireSystem, L1LightingSystem, HBCU1, Tsb111, Tsb112, Tsb113, Tsb114, Tsb115, Tsb116, Tsb117, Tsb118, Tsb119, Tsb1110, Tsb1111, Tsb1112, Tsb1113, Tsb1114, Tsb1115, Tsb1116, Tsb1117, Tsb1118, Tsb1119,  Tsb1120
+,and DRCSmartBuildingCoalition5!
+From the smartBuildingCoalition5 perspective,  L1Room1 sends ActivateAlarm to Tsb111!
+From the smartBuildingCoalition5 perspective,  Tsb111 sends ActivateAlarm to LBCU1!
+
+DNL:
+A Abscissa has a value!
+the range of Abscissa's value is Integer!
+use abscissa with type Abscissa!
+A Ordinate has a value!
+the range of Ordinate's value is Integer!
+use ordinate with type Ordinate!
+A CrowdCoordinate has x and y!
+the range of CrowdCoordinate's x is Abscissa!
+the range of CrowdCoordinate's y is Ordinate!
+use crowdCoordinate with type CrowdCoordinate!
+A Image has name and extension!
+the range of Image's name is String!
+the range of Image's extension is String!
+use image with type Image!
+A PowerLevel has a value!
+the range of PowerLevel's value is Integer!
+use powerLevel with type PowerLevel!
+A PowerThreshold has a value!
+the range of PowerThreshold's value is Integer!
+use powerThreshold with type PowerThreshold!
+A Perception has a value, valueMin and valueMax!
+the range of Perception's value is Integer!
+the range of Perception's valueMin is Integer!
+the range of Perception's valueMax is Integer!
+use perception with type Perception!
+A PerceptionThreshold has a value!
+the range of PerceptionThreshold's value is Integer!
+use perceptionThreshold with type PerceptionThreshold!
+Initialize variables
+<%
+java.util.Random generator = new java.util.Random(); //in case of necessity to coordinate generation
+int number1 = generator.nextInt(10);
+int number2 = generator.nextInt(10);
+ abscissa = new Abscissa(new Integer(0));
+ ordinate = new Ordinate(new Integer(0));
+ crowdCoordinate = new CrowdCoordinate(new Abscissa(new Integer(0)),new Ordinate(new Integer(0)));
+ image = new Image(new String(),new String());
+ powerLevel = new PowerLevel(new Integer(0));
+ powerThreshold = new PowerThreshold(new Integer(0));
+ perception = new Perception(new Integer(0), new Integer(0),new Integer(6));
+ perceptionThreshold = new PerceptionThreshold(new Integer(0));
+
+%>! 
+generates output on PowerLevel with type PowerLevel!
+generates output on VisualPerception with type Perception!
+generates output on Capture with type Image!
+generates output on Coordinate with type CrowdCoordinate!
+to start hold in s0 for time 2!
+after s0 output PowerLevel!
+from s0 go to s1!
+hold in s1 for time 1!
+after s1 output VisualPerception!
+from s1 go to s2!
+hold in s2 for time 1!
+after s2 output Capture!
+from s2 go to s3!
+hold in s3 for time 1!
+after s3 output Coordinate!
+from s3 go to s4!
+hold in s4 for time 1!
+from s4 go to s0!
+output event for s0
+<%
+	output.add(outPowerLevel, powerLevel);
+%>!
+
+output event for s1
+<%
+	output.add(outVisualPerception, perception);
+%>!
+
+output event for s2
+<%
+	output.add(outCapture, image);
+%>!
+
+output event for s3
+<%
+	output.add(outCoordinate, crowdCoordinate);
+%>!
+
+Here is the question to answer: {instruction}

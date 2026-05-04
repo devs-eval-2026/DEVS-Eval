@@ -1,0 +1,38 @@
+# ── Secrets ───────────────────────────────────────────────────────────────────
+.env
+*.env
+
+# ── Proprietary / large docs ──────────────────────────────────────────────────
+docs/
+
+# ── Dataset creation script (not part of the public benchmark) ────────────────
+criar_dataset.py
+
+# ── Runtime output (logs & evaluation artefacts) ──────────────────────────────
+logs/
+evaluation/
+
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# ── Virtual environment ───────────────────────────────────────────────────────
+.venv/
+venv/
+env/
+
+# ── OS / editor noise ─────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.vscode/

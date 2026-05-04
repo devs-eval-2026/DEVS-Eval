@@ -1,0 +1,125 @@
+
+Goal: Generate DEVS models (FDDEVS, SES, Coupled Models) from natural language descriptions by following a step-by-step reasoning process.
+
+Reasoning Structure:
+
+1.  Identify DEVS Components:
+       Atomic Model (FDDEVS): Identify states, ports, transitions, and Java logic (tags `<% %>`).
+       SES (System Entity Structure): Identify aspects (decomposition), specializations (alternatives), and couplings.
+
+2.  Define Attributes and Behaviors:
+       Use DNL syntax for states (`hold in`, `passivate in`), transitions (`from...go to`, `when...receive...go to`), and outputs (`after...output`).
+       Integrate programming logic via Java tags for variable manipulation and complex types (e.g., `IntEnt`).
+
+3.  Connection and Hierarchy:
+       Establish message flow between entities in the SES (`sends...to`).
+
+
+Reference Examples:
+
+Example 1: Atomic FDDEVS Model (ZooKeeper)
+    Prompt: Create a model for a zookeeper who feeds chimpanzees every 6.3 seconds and reacts to hunger requests, and then create an SES for a zoo social network with a ZooKeeper and four chimpanzees (Alpha, Beta, Gamma, Delta), connecting food and hunger alerts.
+
+CoT Output: Let's think step by step. First, we identify the atomic model `ZooKeeper`. 
+            Second, we define the initial state `FeedingTime` with a hold time of 6.3. 
+            After this time, it generates a `Food` output and moves to the `Wait` state. 
+            In the `Wait` state, it is passive until it receives messages like `Hungry` or 
+            `ExtremelyAngry`, which lead it to the `Sorry` state to issue an apology before 
+            returning to feeding. And then, for the SES file, first we define the root entity `ZooChimpsSES` under the 
+            `Social` perspective. Second, we list the components: `ZooKeeper` and the four 
+            chimpanzees. Third, we establish the couplings: the `ZooKeeper` sends `Food` and 
+            `SorryChimp` to all chimpanzees. Finally, each chimpanzee sends its `Hungry` status 
+            back to the `ZooKeeper`.
+
+```dnl
+// ZooKeeper.dnl
+to start hold in FeedingTime for time 6.3!
+after FeedingTime output Food!
+from FeedingTime go to Wait!
+
+passivate in Wait!
+when in Wait and receive Hungry go to Sorry!
+when in Wait and receive ExtremelyAngry go to Sorry!
+when in Wait and receive Hiding go to FeedingTime!
+
+hold in Sorry for time .1!
+after Sorry output SorryChimp!
+from Sorry go to FeedingTime!
+```
+
+```ses
+// ZooChimps.ses
+from the Social perspective, ZooChimpsSES is made of ZooKeeper, AlphaChimp, BetaChimp, GammaChimp, and DeltaChimp!
+
+from the Social perspective, ZooKeeper sends Food to AlphaChimp!
+from the Social perspective, ZooKeeper sends Food to BetaChimp!
+from the Social perspective, ZooKeeper sends Food to GammaChimp!
+from the Social perspective, ZooKeeper sends Food to DeltaChimp!
+
+from the Social perspective, ZooKeeper sends SorryChimp to AlphaChimp!
+from the Social perspective, ZooKeeper sends SorryChimp to BetaChimp!
+from the Social perspective, ZooKeeper sends SorryChimp to GammaChimp!
+from the Social perspective, ZooKeeper sends SorryChimp to DeltaChimp!
+
+from the Social perspective, AlphaChimp sends Hungry to ZooKeeper!
+from the Social perspective, AlphaChimp sends ExtremelyAngry to ZooKeeper!
+from the Social perspective, BetaChimp sends Hungry to ZooKeeper!
+from the Social perspective, GammaChimp sends Hungry to ZooKeeper!
+from the Social perspective, DeltaChimp sends Hungry to ZooKeeper!
+```
+
+Example 2: Atomic Model with Java Logic (Chemical Reaction - Water)
+Prompt: Create a model for the Water molecule that accumulates received molecules and generates an output report using integer types. And then, define an SES for a chemical reaction where Hydrogen and Oxygen can have High or Low concentrations.
+
+CoT Output: Let's think step by step. First, the `Water` model needs to accept `AcceptOneMolecule` 
+            and generate `MoleculesOfWater` of type `IntEnt`. Second, we use a variable 
+            `MoleculesPresent` initialized to 0. Third, we insert Java logic in the `<% %>` tags: 
+            an external event to increment the counter when a molecule is received, and an output 
+            event to send the updated value via `IntEnt`. And then, for the SES file, first, we define `ChemicalReaction` composed of `ReactProcess`, 
+            `Hydrogen`, `Oxygen`, and `Water`. Second, we add specialization: `Hydrogen` can be `LowH` 
+            or `HighH` in the `HydroConcentration` specialization. The same for Oxygen. Third, we map 
+            the `Release` flows to the reaction process.
+
+```dnl
+// Water.dnl
+accepts input on AcceptOneMolecule! 
+generates output on MoleculesOfWater with type IntEnt!  
+   
+use MoleculesPresent with type int and default "0"! 
+  
+to start passivate in waitForInput! 
+when in waitForInput and receive AcceptOneMolecule go to sendRelease! 
+hold in sendRelease for time 1! 
+from sendRelease go to waitForInput! 
+after sendRelease output MoleculesOfWater! 
+ 
+external event for waitForInput with AcceptOneMolecule 
+<% 
+MoleculesPresent = MoleculesPresent + 1; 
+%>! 
+  
+output event for sendRelease 
+<% 
+if (MoleculesPresent >= 0){ 
+output.add(outMoleculesOfWater, new IntEnt(MoleculesPresent)); 
+} 
+%>! 
+```
+
+```ses
+// ChemicalReaction.ses
+From the reaction perspective, ChemicalReaction is made of ReactProcess, Hydrogen, Oxygen, and Water! 
+
+Hydrogen can be LowH or HighH in HydroConcentration! 
+Oxygen can be LowO or HighO in OxyConcentration! 
+
+From the reaction perspective, Hydrogen sends Release to ReactProcess! 
+From the reaction perspective, Oxygen sends Release to ReactProcess! 
+From the reaction perspective, ReactProcess sends AcceptOneMolecule to Water! 
+```
+
+Instruction for the Model: When receiving a new DEVS modeling task, follow this reasoning pattern, 
+use the correct DNL syntax, and incorporate Java logic whenever data manipulation or complex states 
+are required.
+
+Here is the question to answer: {instruction}

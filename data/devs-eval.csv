@@ -1,0 +1,1558 @@
+task_id,category,sub_category,prompt,canonical_solution
+DVS_001,FDDEVS,Basic State,Define a passive state called 'IDLE'.,passivate in IDLE!
+DVS_002,FDDEVS,Basic State,Define a hold state called 'PROCESSING' for 5.7 time units.,hold in PROCESSING for time 5.7!
+DVS_003,FDDEVS,Initial State,Define the initial state of the model as a passive state called 'READY'.,to start passivate in READY!
+DVS_004,FDDEVS,Transition,Define an internal transition from state 'ACTIVE' to state 'FINISHED'.,from ACTIVE go to NEXT_STATE!
+DVS_005,FDDEVS,Output,Configure the model to send the message 'DONE' after state 'TASK_COMPLETED'.,after TASK_COMPLETED output DONE!
+DVS_006,FDDEVS,External Transition,"Configure the model that when in state 'WAITING' and receiving the message 'START', transition to state 'RUNNING'.",when in WAITING and receive START go to RUNNING!
+DVS_007,SES,Decomposition,"Configure the model that under the 'music' perspective, 'JazzBand' is composed of: 'BandLeader', 'RhythmSection', 'HornSection', and 'ReedSection'.","From the music perspective, JazzBand is made of BandLeader, RhythmSection, HornSection, and ReedSection!"
+DVS_008,SES,Coupling,"Configure the model that in the 'music' perspective, the 'BandLeader' sends the message 'PlayBeat' to the 'RhythmSection'.","From the music perspective, BandLeader sends PlayBeat to RhythmSection!"
+DVS_009,SES,Hierarchical,"Define that, under the 'dataGather' perspective, 'DataGatherPhase' is composed of 'getData' and 'validateData'.","From the dataGather perspective, DataGatherPhase is made of getData and validateData!"
+DVS_010,SES,External Input Coupling,"Configure the model that in the 'dataGather' perspective, the parent entity 'DataGatherPhase' sends 'ClearObjectives' to the component 'getData'.","From the dataGather perspective, DataGatherPhase sends ClearObjectives to getData!"
+DVS_011,Elaboration,Data Type,Define an object 'Command' with attributes 'Mode' (String) and 'Duration' (TimeInterval).,"A Command has a Mode and Duration! The range of Command’s Mode is String! The range of Command’s Duration is TimeInterval with default ""new TimeInterval()""!"
+DVS_012,Elaboration,Variables,"Declare the use of a variable 'count' of type 'int' with default value ""0"".","use count with type int and default ""0""!"
+DVS_013,Elaboration,Tagged Block (Init),Create an initialization block to set 'count' to 0 and instantiate 'wtd' as a new 'WorkToDo'.,Initialize variables <% count =0; wtd = new WorkToDo(); wtd.setId(count); wtd.setprocessingTime (20+count); %>!
+DVS_014,Elaboration,Tagged Block (Output),"Create in the output event of state 'generate', add 'wtd' to port 'outJob'.","output event for generate <% output.add(outJob, wtd); %>!"
+DVS_015,Elaboration,Non-deterministic,"Implement internal logic for state 'generate': increment 'count', and if 'count' is greater than or equal to 'numberOfJobs', transition to 'passive'; otherwise, create a new 'WorkToDo'.","Internal event for generate <% count ++; if (count>=numberOfJobs) passivateIn(""passive""); else{ wtd = new WorkToDo(); wtd.setId(count); wtd.setProcessingTime(20+count); } %>!"
+DVS_016,Specialization,Taxonomy,"Create the component 'getData' can be 'immediateAccess', 'findInDataBase', or 'startResearch' in the 'meansToGetData' specialization.","getData can be immediateAccess, findInDataBase, or startResearch in meansToGetData!"
+DVS_017,Specialization,Aspect Modification,Indicate that 'DataGatherPhase' can be 'Present' or 'NotPresent' in the 'presence' specialization.,DataGatherPhase can be Present or NotPresent in presence!
+DVS_018,Specialization,Multiple Specializations,Define that 'reuseFromRepository' can be 'local' or 'internet' (location) and also 'open' or 'restricted' (accessRights).,reuseFromRepository can be local or internet in location! reuseFromRepository can be open or restricted in accessRights!
+DVS_019,Variables,Range Constraints,Define that the height range of a 'boy' is of type double with values between 20 and 72.,The range of a boy’s height is double with values!
+DVS_020,Specialization,Pruning Values,Assign the range for the height of a 'short_boy' and the eye color 'grey'.,Set short_boy’s height to! Set short_boy’s eyeColor to grey!
+DVS_021,SES,Multi-Aspect,"Define that, under the 'fastProcess' perspective, the system 'MSProcessSystem' is decomposed into: 'User', 'ClarifyObjectivesPhase', 'getModelFromRepository', 'ExecuteModelPhase', and 'InterpretResultsPhase'.","From the fastProcess perspective, MSProcessSystem is made of User, ClarifyObjectivesPhase, getModelFromRepository, ExecuteModelPhase, and InterpretResultsPhase!"
+DVS_022,SES,Multi-Entity,"In the 'multiPerson' aspect, define that the entity 'People' is composed of more than one 'Person'.","From the multiPerson perspective, People are made of more than one Person!"
+DVS_023,SES,Uniform Coupling,"Using uniform coupling, define that all 'Person' send the message 'Bye' to the instance 'id0_Person'.","From the top perspective, all Person sends Bye to id0_Person!"
+DVS_024,SES,Broadcast Coupling,"In the 'top' perspective, define that all 'Person' send the message 'Hello' to all 'Person' (except themselves).","From the top perspective, all Person sends Hello to all Person!"
+DVS_025,SES,Pairwise Coupling,"In the 'dating' perspective, define that each 'Boy' sends an 'Invitation' to each 'Girl'.","From the dating perspective, each Boy sends Invitation to each Girl!"
+DVS_026,SES,One-to-All,"In the 'dating' perspective, define that the component 'MatchMaker' sends 'MakeInvitation' to all 'Boy'.","From the dating perspective, MatchMaker sends MakeInvitation to all Boy!"
+DVS_027,SES,All-to-One,"In the 'dating' perspective, define that all 'Boy' send their 'Preference' to the 'MatchMaker'.","From the dating perspective, all Boy sends Preference to MatchMaker!"
+DVS_028,SES,Specialized Restructuring,Perform multi-aspect restructuring using the 'index' specialization and define multiplicity for 4 instances of 'MonorailStation'.,restructure multi-aspects using index! set multiplicity of index as for MonorailStation!
+DVS_029,SES,Graph Coupling,Write a cyclic coupling specification for 'MonorailStation' based on the 'circle' graph using the 'index' specialization.,write cyclic specification for MonorailStation and index based on circle!
+DVS_030,SES,Directed Graph Logic,"For the 'circle' graph, define that the left node (leftnode) sends 'Car' to the right node (rightnode).",for circle leftnode sends Car to rightnode!
+DVS_031,Inheritance,Instance Creation,"In the 'SimpleWorkFlow' system, create two instances of 'GeneratorOfJobs' named 'First_GeneratorOfJobs' and 'Second_GeneratorOfJobs'.","From the top perspective, SimpleWorkFlow is made of First_GeneratorOfJobs, Second_GeneratorOfJobs, and ProcessorOfJobs!"
+DVS_032,Inheritance,Explicit Base,"In the pruning file, specify that the generated class should directly inherit from the 'Reactive' behavior.",inherit from Reactive!
+DVS_033,Elaboration,Method Override (Java),"Implement the method 'interpretNameAsPeriod' in Java to set the period to 50 if the name starts with ""Slow"" and 10 if it starts with ""Fast"".","private double Period; public void interpretNameAsPeriod() { if (name.startsWith(""Slow"")) { Period = 50; } else if (name.startsWith(""Fast"")) { Period = 10; } else { Period = 20; } }"
+DVS_034,Protocol,Interface Def.,Define an object 'NamedMessage' with 'myName' (String) and 'myMessage' (MessageBag).,A NamedMessage has myName and myMessage! The range of NamedMessage’s myName is String! The range of NamedMessage’s myMessage is MessageBag!
+DVS_035,Protocol,Port Configuration,Configure the 'Simulator' to accept input on 'GetOutput' (type DoubleEnt) and produce output on 'MyOutput' (type NamedMessage).,accepts input on GetOutput with type DoubleEnt! generates output on MyOutput with type NamedMessage!
+DVS_036,FDDEVS,Protocol Logic (Coord),"In state 'sendGetTN', the Coordinator should send 'GetTN' and transition to 'waitForAllTN'.",after sendGetTN output GetTN! from sendGetTN go to waitForAllTN! passivate in waitForAllTN!
+DVS_037,FDDEVS,Protocol Logic (Sim),"The Simulator, upon receiving 'GetTN' in 'waitForGetTN', should transition to 'sendMyTN' and, after 0 seconds, send 'MyTN'.",when in waitForGetTN and receive GetTN go to sendMyTN! hold in sendMyTN for time 0! after sendMyTN output MyTN!
+DVS_038,FDDEVS,P/S Router Logic,Define the initial state of the router as 'waitForInput' and the transition upon receiving a 'PublishRequest'.,to start passivate in waitForInput! when in waitForInput and receive PublishRequest go to handlePublishRequest!
+DVS_039,FDDEVS,P/S Router Timing,"Configure the processing time for 'handleSubscribeRequest' as 0.1 seconds, returning to 'waitForInput'.",hold in handleSubscribeRequest for time .1! from handleSubscribeRequest go to waitForInput!
+DVS_040,Elaboration,Relation Declarations,"Declare the use of three relations ('Relation') for the router: 'PublisherTopic', 'TopicSubscriber', and 'TopicValue'.","use PublisherTopic with type Relation and default ""new Relation()""! use TopicSubscriber with type Relation and default ""new Relation()""! use TopicValue with type Relation and default ""new Relation()""!"
+DVS_041,Elaboration,External Event (P/S),"Implement Java logic to process a 'SubscribeRequest': extract the subscriber and topic, store them in the relation, and add dynamic coupling in the parent model.","external event for waitForInput with SubscribeRequest <% for (int j = 0; j < messageList.size(); j++){ SubscribeRequest = messageList.get(j).getData(); String subscriber = (String) SubscribeRequest.getKey(); String topic = (String) SubscribeRequest.getValue(); TopicSubscriber.put(new PairOfString(topic, subscriber)); CoupledModelImpl parent = (CoupledModelImpl)this.getParent(); parent.addCoupling(this.getName(),""out""+topic,subscriber,""in""+topic); } %>!"
+DVS_042,SES,Attribute Domains,"In the car purchasing SES, define that 'Vehicle' has attributes 'VIN' (int) and 'Weight' (double).",Vehicle has VIN and Weight! The range of Vehicle’s VIN is int! The range of Vehicle’s Weight is double!
+DVS_043,SES,Hierarchy & Logic,"Define that 'Ford' can be of models 'Fusion' or 'Focus', and 'Buyer' has 'Name', 'SSN', and 'Address' as strings.","Ford can be Fusion or Focus in model! Buyer has Name, SSN, and Address! The range of Buyer’s Name is string! The range of Buyer’s SSN is string! The range of Buyer’s Address is string!"
+DVS_044,Mapping,Value Transfer,Map the value of attribute 'EventTime' from SES 'PacketInfo' to attribute 'EventTime' of SES 'EventInfo'.,transfer PacketInfo’s EventTime value to EventInfo’s EventTime
+DVS_045,Mapping,Contextual Transfer,Transfer the 'IPAddress' from 'AddressSection' specifically under 'DestHost' to the 'IPAddress' of 'DestIp'.,transfer AddressSection’s IPAddress under DestHost to DestIp’s IPAddress
+DVS_046,Mapping,Multi-Entity Index,Transfer the 'portNumber' from the first instance (index 0) of 'Port' under 'SrcHost' to the 'portNumber' of 'SrcPort'.,transfer Port.0’s portNumber under Ports under SrcHost to SrcPort’s portNumber
+DVS_047,Mapping,Multi-aspect Pairing,Establish a correspondence between occurrences of the 'source' entity and those of the 'target'.,pairUp <source>’s <entity> with <target>’s <entity>
+DVS_048,Elaboration,XML Generation,"Implement the internal event to generate a new PES and XML instance from a packet SES file, incrementing the counter.","Internal event for sendOutput <% generatePrunings.setSeed(6879345 + count * 9); String XMLFile = util.ContentsWork.createNewXMLInst(""DataHandling"", ""PacketInfoSes.txt"", ""PacketInfoPrune.txt""); sp = new SesPesPair(); sp.setXMLFile(XMLFile); count ++; %>!"
+DVS_049,FDDEVS,Distributed Logic,"In the 'MapNDistribute' model, define the transition: upon receiving 'DataRequest' in state 'waitforDataRequest', transition to 'sendLANDXML'.",when in waitforDataRequest and receive DataRequest go to sendLANDXML! hold in sendLANDXML for time 1! after sendLANDXML output LANDXML!
+DVS_050,Elaboration,Dynamic Model Mgmt,Implement Java logic to dynamically add a child model ('storedActor') and create its couplings upon receiving a message.,"external event for waitForActor with Actor <% storedActor = messageList.get(0).getData(); CoupledModelImpl parent = (CoupledModelImpl) this.getParent(); parent.addChildModel(storedActor); parent.addCoupling(this.getName(),""outHello"",""Actor"",""inHello""); %>!"
+DVS_051,SES,Multi-level Decomp,"In the satellite SES, define that under the 'activity' perspective, 'SatelliteModule' is composed of: 'Energizing', 'Propulsing', 'Communicating', 'Navigating', 'Controlling', and 'Sensing'.","From the activity perspective, SatelliteModule is made of Energizing, Propulsing, Communicating, Navigating, Controlling, and Sensing!"
+DVS_052,SES,Nested Spec,"Define that 'Sensor' can be 'Visual', 'InfraRed', 'Radar', or 'MultiCapability' in the 'EMType' specialization.","Sensor can be Visual, InfraRed, Radar, or MultiCapability in EMType!"
+DVS_053,Pruning,Context Selection,Perform a pruning operation to select 'Radar' from the 'EMType' specialization for all 'Sensor'.,select Radar from EMType for Sensor!
+DVS_054,Pruning,Restructuring,Use a restructuring operation to eliminate the 'Radar' option wherever 'Sensor' occurs in the SES.,don’t select Radar under Sensor!
+DVS_055,Pruning,Count Bounds,Establish a constraint to accept only PESs that have between 0 and 2 instances of 'Visual_Sensor'.,set count bounds for Visual_Sensor as!
+DVS_056,Pruning,Monolithic vs Cluster,Define count bounds for 'SatelliteModule' as exactly 1 for a monolithic case and between 3 and 6 for a cluster.,set count bounds for SatelliteModule as! set count bounds for SatelliteModule as!
+DVS_057,Pruning,Presence Logic,Use the 'presence' specialization to ensure that 'CommInterSatelliteLink' is present in the PES.,select Present from presence for CommInterSatelliteLink!
+DVS_058,SES,Physical Model Def,"In the SES of the physical model 'FrontierPMS', define that 'SatelliteModule' has an attribute 'ID' of type int.",SatelliteModule has ID! The range of SatelliteModule’s ID is int!
+DVS_059,SES,Module Taxonomy,Define that a 'SatelliteModule' can be an 'ImageSat' or a 'RelaySat' in the 'moduleType' specialization.,SatelliteModule can be ImageSat or RelaySat in moduleType!
+DVS_060,SES,Domain Attributes,"In the 'image' perspective, define that 'ImageSat' is composed of 'SensorModule', 'CommModule', and 'Orbit', and assign to 'SensorModule' the fields 'fov', 'viewRange', and 'imageBits'.","From the image perspective, ImageSat is made of SensorModule, CommModule, and Orbit! SensorModule has fov, viewRange, and imageBits!"
+DVS_061,SES,Distributed Protocol,"In the 'DEVSDistributedSim' SES, define that the 'Coordinator' sends 'GetTN', 'GetOutput', 'StoreInput', and 'DoDelta' to all 'Simulator' (all).","From the protocol perspective, Coordinator sends GetTN to all Simulator! From the protocol perspective, Coordinator sends GetOutput to all Simulator! From the protocol perspective, Coordinator sends StoreInput to all Simulator! From the protocol perspective, Coordinator sends DoDelta to all Simulator!"
+DVS_062,FDDEVS,Peer Coordinator,"In the 'CoordinatorPeer', after receiving 'MyTN', the model should transition to 'sendSendOutput' with time 0 and generate output 'SendOutput'.",when in waitForAllTN and receive MyTN go to sendSendOutput! hold in sendSendOutput for time 0! after sendSendOutput output SendOutput!
+DVS_063,FDDEVS,Peer Simulator,"The 'SimulatorPeer', upon receiving 'SendOutput', should transition to 'sendMyOutput', wait 0 seconds, and transition to 'waitForStoreInput'.",when in waitForGetSendOutput and receive SendOutput go to sendMyOutput! hold in sendMyOutput for time 0! after sendMyOutput output MyOutput! from sendMyOutput go to waitForStoreInput!
+DVS_064,SES,P2P Coupling,"In the 'protocolPeer' perspective, define direct coupling where all 'SimulatorPeer' send 'outMyOutput' to all others as 'inStoreInput'.","From the protocolPeer perspective, all SimulatorPeer sends outMyOutput to all SimulatorPeer as inStoreInput!"
+DVS_065,FDDEVS,Real-Time Sim,"In 'SimulatorRTPeer', define that the model waits in 'sendMyOutput' for 'modelTimeAdvance' time and, upon receiving 'Stop', returns to 'waitForStart'.","hold in sendMyOutput for time ""modelTimeAdvance""! after sendMyOutput output MyOutput! when in sendMyOutput and receive Stop go to waitForStart!"
+DVS_066,Elaboration,Sim Variables,"Declare state variables 'tN', 'tL', and 't' as double, and 'myModel' as 'AtomicModelImpl'.",use tN with type double! use tL with type double! use t with type double! use myModel with type AtomicModelImpl!
+DVS_067,Elaboration,Sim Initialization,"Implement Simulator initialization: instantiate 'myModel', call 'initialize()', set 'tL' to 0, and compute 'tN' as 'tL' plus the model time advance.","Initialize variables <% myModel = new AtomicModelImpl(""MyModel""); myModel.initialize(); tL = 0; tN = tL + myModel.getTimeAdvance(); t = 0; %>!"
+DVS_068,Elaboration,Sim External Event,"In the Simulator, upon receiving 'GetOutput', extract the current time value from the message and store it in variable 't'.",external event for waitForGetOutput with GetOutput <% $t = messageList.get(0).getData().getValue();$ %>!
+DVS_069,Elaboration,Sim Output Event,"Implement the output event 'sendMyOutput': create a 'NamedMessage' with the model name and the result of 'computeOutput(t)', adding it to the output port.","output event for sendMyOutput <% NamedMessage sm = new NamedMessage(getName(),computeOutput(t)); output.add(outMyOutput,sm); %>!"
+DVS_070,Elaboration,Coord External Event,"In the Coordinator, implement logic to reset 'tN' to the maximum value when starting to collect next-event times from simulators.",external event for waitForAllTN with MyTN <% tN = Double.MAX_VALUE; %>!
+DVS_071,SES,Dynamic Structure,"Set the SES to 'AgentAndActor' in the 'dynamic' perspective, where the coupling allows the system to send an 'Actor' to the 'Agent' and vice versa.","From the dynamic perspective, AgentAndActor is made of Agent! From the dynamic perspective, AgentAndActor sends Actor to Agent! From the dynamic perspective, Agent sends Actor to AgentAndActor!"
+DVS_072,Elaboration,Dynamic Model Mgmt,"Use the dynamic structure method to add the 'Actor' model as a child of the current coupled model.
+Implement the command to create a coupling between the output port 'outHello' of the current Agent (this) and the input port 'inHello' of the 'Actor' component.",addChildModel(Actor);
+DVS_073,Elaboration,Dynamic Coupling,Implement the command to create a coupling between the output port 'outHello' of the current Agent (this) and the input port 'inHello' of the 'Actor' component.,"addCoupling(this.getName(), ""outHello"", ""Actor"", ""inHello"");"
+DVS_074,Elaboration,Model Removal,Use the correct method to remove the 'Actor' model from the simulation system.,removeChildModel(Actor);
+DVS_075,FDDEVS,Publisher Init,Set the initial state of a 'Publisher' that waits 0 seconds to issue a 'PublishRequest'.,to start hold in doPublishRequest for time 0.0! after doPublishRequest output PublishRequest!
+DVS_076,FDDEVS,Topic Update,"In 'Publisher', after the publication request, move to 'sendTopicUpdate' with an update cycle of 10 time units.",from doPublishRequest go to sendTopicUpdate! hold in sendTopicUpdate for time 10.0! after sendTopicUpdate output TopicUpdate! from sendTopicUpdate go to sendTopicUpdate!
+DVS_077,FDDEVS,Subscriber Init,Set the initial behavior of a 'Subscriber': wait 1 second and then generate a 'SubscribeRequest'.,to start hold in doSubscribeRequest for time 1! after doSubscribeRequest output SubscribeRequest!
+DVS_078,FDDEVS,Subscriber Passive,"After the registration request, the 'Subscriber' must remain idle in the 'waitForUpdateToSubscribers' state until it receives an update.",from doSubscribeRequest go to waitForUpdateToSubscribers! passivate in waitForUpdateToSubscribers!
+DVS_079,FDDEVS,Subscriber Loop,Set the 'Subscriber' to return to the waiting state whenever it receives the 'UpdateToSubscribers' message.,when in waitForUpdateToSubscribers and receive UpdateToSubscribers go to waitForUpdateToSubscribers!
+DVS_080,Elaboration,Data Type,Define an Abscissa object with the attribute value of type Integer and declare a variable abscissa of this type.,A Abscissa has a value! the range of Abscissa's value is Integer! use abscissa with type Abscissa!
+DVS_081,Elaboration,Data Type,Define an Ordinate object with the attribute value of type Integer and declare a variable ordinate of this type.,A Ordinate has a value! the range of Ordinate's value is Integer! use ordinate with type Ordinate!
+DVS_082,Elaboration,Data Type,"Define a composite object CrowdCoordinate with the attributes x (Abscissa) and y (Ordinate), and declare the corresponding variable.",A CrowdCoordinate has x and y! the range of CrowdCoordinate's x is Abscissa! the range of CrowdCoordinate's y is Ordinate! use crowdCoordinate with type CrowdCoordinate!
+DVS_083,Elaboration,Data Type,"Define an Image object with the attributes name and extension of type String, and declare the corresponding variable.",A Image has name and extension! the range of Image's name is String! the range of Image's extension is String! use image with type Image!
+DVS_084,Elaboration,Data Type,"Define the PowerLevel and PowerThreshold objects, both with an attribute value of type Integer, and declare their variables.",A PowerLevel has a value! use powerLevel with type PowerLevel! A PowerThreshold has a value! use powerThreshold with type PowerThreshold!
+DVS_085,Elaboration,Data Type,"Define a Perception object with the attributes value, valueMin, and valueMax of type Integer, and a PerceptionThreshold with an integer value.","A Perception has a value, valueMin and valueMax! ... use perceptionThreshold with type PerceptionThreshold!"
+DVS_086,Elaboration,Tagged Block (Init),"Initialize the sensor variables: generate random numbers and instantiate objects with initial values (Perception valueMax=6, Threshold 0).","<%
+java.util.Random generator = new java.util.Random(); //in case of necessity to coordinate generation
+int number1 = generator.nextInt(10);
+int number2 = generator.nextInt(10);
+ abscissa = new Abscissa(new Integer(0));
+ ordinate = new Ordinate(new Integer(0));
+ crowdCoordinate = new CrowdCoordinate(new Abscissa(new Integer(0)),new Ordinate(new Integer(0)));
+ image = new Image(new String(),new String());
+ powerLevel = new PowerLevel(new Integer(0));
+ powerThreshold = new PowerThreshold(new Integer(0));
+ perception = new Perception(new Integer(0), new Integer(0),new Integer(6));
+ perceptionThreshold = new PerceptionThreshold(new Integer(0));
+%>! "
+DVS_087,Protocol,Port Configuration,"Set the sensor to generate output on the PowerLevel, VisualPerception, Capture, and Coordinate ports with their respective types.","generates output on PowerLevel with type PowerLevel!
+generates output on VisualPerception with type Perception!
+generates output on Capture with type Image!
+generates output on Coordinate with type CrowdCoordinate!"
+DVS_088,FDEVS,Cyclic State Machine,"Define a cycle of states s0→s1→s2→s3→s4→s0, with specific durations and outputs mapped for each initial state.","to start hold in s0 for time 2!
+after s0 output PowerLevel!
+from s0 go to s1!
+hold in s1 for time 1!
+after s1 output VisualPerception!
+from s1 go to s2!
+hold in s2 for time 1!
+after s2 output Capture!
+from s2 go to s3!
+hold in s3 for time 1!
+after s3 output Coordinate!
+from s3 go to s4!
+hold in s4 for time 1!
+from s4 go to s0!
+output event for s0"
+DVS_089,Elaboration,Tagged Block (Output),"Implement the sensor output events: add the objects to the corresponding output ports (outPowerLevel, outVisualPerception, etc).","<%
+    output.add(outPowerLevel, powerLevel);
+%>!
+output event for s1
+<%
+    output.add(outVisualPerception, perception);
+%>!
+output event for s2
+<%
+    output.add(outCapture, image);
+%>!
+output event for s3
+<%
+    output.add(outCoordinate, crowdCoordinate);
+%>!"
+DVS_090,Elaboration,Data Type,"Define a composite object DroneCoordinate with the attributes x (Abscissa) and y (Ordinate), and declare the corresponding variable.","A Abscissa has a value!
+the range of Abscissa's value is Integer!
+use abscissa with type Abscissa!
+A Ordinate has a value!
+the range of Ordinate's value is Integer!
+use ordinate with type Ordinate!
+A DroneCoordinate has x and y!
+the range of DroneCoordinate's x is Abscissa!
+the range of DroneCoordinate's y is Ordinate!
+use droneCoordinate with type DroneCoordinate!"
+DVS_091,Elaboration,Data Type,Define a WaterDepth object with a value attribute of type Integer and declare the corresponding variable.,A WaterDepth has a value! the range of WaterDepth's value is Integer! use waterDepth with type WaterDepth!
+DVS_092,Elaboration,Data Type,Define a WaterThreshold object with a value attribute of type Integer and declare the corresponding variable.,A WaterThreshold has a value! the range of WaterThreshold's value is Integer! use waterThreshold with type WaterThreshold!
+DVS_093,Elaboration,Data Type,Define a DistanceFlown object with a value attribute of type Integer and declare the corresponding variable.,A DistanceFlown has a value! the range of DistanceFlown's value is Integer! use distanceFlown with type DistanceFlown!
+DVS_094,Elaboration,Tagged Block (Init),"Initialize the drone's variables: instantiate Abscissa, Ordinate, DroneCoordinate, WaterDepth, PowerThreshold, DistanceFlown, Image, WaterThreshold, and PowerLevel with a value of 0.","Initialize variables
+<%
+java.util.Random generator = new java.util.Random(); //in case of necessity to coordinate generation
+int number1 = generator.nextInt(10);
+int number2 = generator.nextInt(10);
+ abscissa = new Abscissa(new Integer(0));
+ ordinate = new Ordinate(new Integer(0));
+ droneCoordinate = new DroneCoordinate(new Abscissa(new Integer(0)),new Ordinate(new Integer(0)));
+ waterDepth = new WaterDepth(new Integer(0));
+ powerThreshold = new PowerThreshold(new Integer(0));
+ distanceFlown = new DistanceFlown(new Integer(0));
+ image = new Image(new String(),new String());
+ waterThreshold = new WaterThreshold(new Integer(0));
+ powerLevel = new PowerLevel(new Integer(0));
+%>! "
+DVS_095,Protocol,Port Configuration,"Configure the drone to generate output on the Water (WaterDepth), PowerLevel (PowerLevel), Coordinate (DroneCoordinate), and Capture (Image) ports.","generates output on Water with type WaterDepth!
+generates output on PowerLevel with type PowerLevel!
+generates output on Coordinate with type DroneCoordinate!
+generates output on Capture with type Image!"
+DVS_096,FDEVS,Cyclic State Machine,"Define a cycle s0→s1→s2→s3→s4→s0 where s0 lasts 2 units and the others 1 unit, with outputs in s0, s1, s2, and s3.","to start hold in s0 for time 2!
+after s0 output Water!
+from s0 go to s1!
+hold in s1 for time 1!
+after s1 output PowerLevel!
+from s1 go to s2!
+hold in s2 for time 1!
+after s2 output Coordinate!
+from s2 go to s3!
+hold in s3 for time 1!
+after s3 output Capture!
+from s3 go to s4!
+hold in s4 for time 1!
+from s4 go to s0!
+output event for s0"
+DVS_097,Elaboration,Tagged Block (Output),"Implement the drone's output events: add the objects to the outWater, outPowerLevel, outCoordinate, and outCapture ports.","<%
+    output.add(outWater, waterDepth);
+%>!
+output event for s1
+<%
+    output.add(outPowerLevel, powerLevel);
+%>!
+output event for s2
+<%
+    output.add(outCoordinate, droneCoordinate);
+%>!
+output event for s3
+<%
+    output.add(outCapture, image);
+%>!"
+DVS_098,Elaboration,Variables,"Declare four integer counters: countCoordinateReceived, countVisualPerceptionReceived, countperceptionThreshold, and countCaptureReceived.","use countCoordinateReceived with type int!
+use countVisualPerceptionReceived with type int!
+use countperceptionThreshold with type int!
+use countCaptureReceived with type int!
+use mS4MESimulationInterface with type MS4MESimulationInterface!"
+DVS_099,Elaboration,Variables,Declare a variable mS4MESimulationInterface of type MS4MESimulationInterface.,use mS4MESimulationInterface with type MS4MESimulationInterface!
+DVS_100,Elaboration,Library Import,"Add Java libraries (Date, Random, ArrayList, Math) and the DEVS AtomicModel interface.","add library
+<%
+import java.util.Date;
+import java.util.Calendar;
+import java.util.Random;
+import java.util.ArrayList;
+import static java.lang.Math.*;
+import com.ms4systems.devs.core.model.AtomicModel;
+%>!"
+DVS_101,Elaboration,Tagged Block (Init),Locate the MS4MESimulationInterface instance in the children of the parent model and register the current node.,"Initialize variables
+<%
+for(AtomicModel e : getParent().getChildren()) {
+	if(e instanceof MS4MESimulationInterface) {
+		mS4MESimulationInterface = (MS4MESimulationInterface) e;
+	}
+}
+if(mS4MESimulationInterface != null) {
+	mS4MESimulationInterface.newNode(this);
+}
+ java.util.Random generator = new java.util.Random(); //in case of necessity to coordinate generation
+ int number1 = generator.nextInt(10);
+ int number2 = generator.nextInt(10);
+ abscissa = new Abscissa(new Integer(0));
+ ordinate = new Ordinate(new Integer(0));
+ crowdCoordinate = new CrowdCoordinate(new Abscissa(new Integer(0)),new Ordinate(new Integer(0)));
+ image = new Image(new String(),new String());
+ powerLevel = new PowerLevel(new Integer(0));
+ powerThreshold = new PowerThreshold(new Integer(0));
+ perception = new Perception(new Integer(0), new Integer(0),new Integer(6));
+ perceptionThreshold = new PerceptionThreshold(new Integer(0));
+%>!"
+DVS_102,Protocol,Port Configuration,"Set input/output ports for VisualPerception and Capture, and input only for PowerLevel and Coordinate.","accepts input on PowerLevel with type PowerLevel!							
+accepts input on VisualPerception with type Perception!							
+generates output on VisualPerception with type Perception!	        			
+accepts input on Capture with type Image!							
+generates output on Capture with type Image!	        			
+accepts input on Coordinate with type CrowdCoordinate!"
+DVS_103,FDDEVS,Mixed State Machine,Define sequence s0→s1→s2→s3 (1 unit). s3 waits for Coordinate for s4; s4 waits for VisualPerception for s5.,"to start 
+hold in s0 for time 1!
+from s0 go to s1! //UNOBSERVABLE : FIXME: system/mediator/architecture parameters may change this guard!         
+hold in s1 for time 1!
+from s1 go to s2! //UNOBSERVABLE : Valuing         
+hold in s2 for time 1!
+from s2 go to s3! //UNOBSERVABLE :          
+passivate in s3!
+when in s3 and receive Coordinate go to s4!
+passivate in s4!
+when in s4 and receive VisualPerception go to s5!
+hold in s5 for time 1!
+after s5 output VisualPerception!"
+DVS_104,FDDEVS,Mixed State Machine,"In s5, emit VisualPerception. If the threshold is reached, wait for Capture in s7; otherwise, repeat cycle s9→s2.","from s5 go to s6!                
+hold in s6 for time 1!
+from s6 go to s7! //UNOBSERVABLE : IfThenElseBehavior (true case)         
+passivate in s7!
+when in s7 and receive Capture go to s8!
+hold in s8 for time 1!
+after s8 output Capture!
+from s8 go to s9!                
+hold in s9 for time 1!
+from s9 go to s2! //UNOBSERVABLE : Repeat loop         
+external event for s3 with Coordinate"
+DVS_105,Elaboration,External Event,"In state s3, upon receiving Coordinate, increment the counter, record the rendezvous, and store the data.","<%
+countCoordinateReceived++;
+mS4MESimulationInterface.rendezvous(messageList.get(0).getMessageTrace().getPort(), 
+	inCoordinate,
+	messageList.get(0).getData().hashCode());
+crowdCoordinate = messageList.get(0).getData();
+%>!"
+DVS_106,Elaboration,External Event,"In state s4, upon receiving VisualPerception, increment the counter, record the rendezvous, and store the perception.","external event for s4 with VisualPerception
+<%
+countVisualPerceptionReceived++;
+mS4MESimulationInterface.rendezvous(messageList.get(0).getMessageTrace().getPort(), 
+	inVisualPerception,
+	messageList.get(0).getData().hashCode());
+perception = messageList.get(0).getData();
+%>!"
+DVS_107,Elaboration,External Event,"In state s7, upon receiving Capture, increment the counter, record the rendezvous, and store the image.","external event for s7 with Capture
+<%
+countCaptureReceived++;
+mS4MESimulationInterface.rendezvous(messageList.get(0).getMessageTrace().getPort(), 
+	inCapture,
+	messageList.get(0).getData().hashCode());
+image = messageList.get(0).getData();
+%>!"
+DVS_108,Elaboration,Tagged Block (Internal),"In the internal event of s1, instantiate PowerThreshold (20) and PerceptionThreshold (4).","internal event for s1
+<%
+powerThreshold = new PowerThreshold(new Integer(20));
+perceptionThreshold = new PerceptionThreshold(new Integer(4));
+%>!"
+DVS_109,Elaboration,Non-deterministic,"In s6, if the perception reaches the threshold, increment the counter and go to s7; otherwise, go to s9 for 1 unit.","internal event for s6
+<%
+if(perception.getValue() >= perceptionThreshold.getValue()) {
+	countperceptionThreshold++;
+	passivateIn(""s7"");
+}
+else {
+	holdIn(""s9"",1.0);
+}
+%>!"
+DVS_110,FDDEVS,Dynamic Removal,"Configure the model to accept 'Remove' in any state, going to RemoveC, which emits the model itself.","when in s0 and receive Remove go to RemoveC!
+when in s1 and receive Remove go to RemoveC!
+when in s2 and receive Remove go to RemoveC!
+when in s3 and receive Remove go to RemoveC!
+when in s4 and receive Remove go to RemoveC!
+when in s5 and receive Remove go to RemoveC!
+when in s6 and receive Remove go to RemoveC!
+when in s7 and receive Remove go to RemoveC!
+when in s8 and receive Remove go to RemoveC!
+when in s9 and receive Remove go to RemoveC!
+
+generates output on Remove with type AtomicModelImpl!
+hold in RemoveC for time 1!
+after RemoveC output Remove!
+from RemoveC go to RemoveC!"
+DVS_111,Elaboration,Additional Code,"Add metadata: isMediator = false and typeCons = ""Crowd"" as public constants.","add additional code
+<%
+public final boolean isMediator = false;
+public final String typeCons = ""Crowd"";
+%>!"
+DVS_112,Elaboration,Additional Code,"Implement writeCountersData() to save the counters in a CSV in the ""result"" folder and reset them.","add additional code
+<%
+	private File getSrcModelsDirectory() {
+		URI dirUri = null;
+		File dir = null;
+		try {
+			dirUri = this.getClass().getResource(""."").toURI();
+			dir = new File(dirUri);
+		} catch (URISyntaxException e) {
+		}
+		while (dir != null && dir.getParentFile() != null) {
+			if (dir.getName().equalsIgnoreCase(""bin"")) {
+				return new File(dir.getParentFile(), ""src/Models"");
+			}
+			dir = dir.getParentFile();
+		}
+		return null;
+	}
+	public void writeCountersData() {
+		String dirPath = getSrcModelsDirectory().getAbsolutePath() + ""/result"";
+		
+		if(!new File(dirPath).exists()) {
+		new File(dirPath).mkdir();
+	}
+	try{
+		BufferedWriter writer = new BufferedWriter(new FileWriter(dirPath + ""/Result.csv"",true));
+		writer.write(getName() + "";"");
+		writer.write(""countCoordinateReceived = "" + Integer.toString(countCoordinateReceived) + "";"");
+		countCoordinateReceived = 0;
+		writer.write(""countVisualPerceptionReceived = "" + Integer.toString(countVisualPerceptionReceived) + "";"");
+		countVisualPerceptionReceived = 0;
+		writer.write(""countCaptureReceived = "" + Integer.toString(countCaptureReceived) + "";"");
+		countCaptureReceived = 0;
+		writer.write(""countperceptionThreshold = "" + Integer.toString(countperceptionThreshold) + "";"");
+		countperceptionThreshold = 0;
+		writer.newLine();
+		writer.close();
+	}catch(Exception e) {}
+	}
+%>!"
+DVS_113,Protocol,Port Configuration,"Set up the model to accept input in VisualPerception and Capture, and produce output only in Alert (Image type).",accepts input on VisualPerception with type Perception! accepts input on Capture with type Image! generates output on Alert with type Image!
+DVS_114,FDDEVS,Mixed State Machine,"Define the sequence s0→s1→s2→s3. s3 waits for VisualPerception for s4. s4 decides: if it reaches the threshold, it waits for Capture in s5; otherwise, s7→s2.","to start 
+hold in s0 for time 1!
+from s0 go to s1! //UNOBSERVABLE : FIXME: system/mediator/architecture parameters may change this guard! 	
+hold in s1 for time 1!
+from s1 go to s2! //UNOBSERVABLE : Valuing 	
+hold in s2 for time 1!
+from s2 go to s3! //UNOBSERVABLE :  	
+passivate in s3!
+when in s3 and receive VisualPerception go to s4!
+hold in s4 for time 1!
+from s4 go to s5! //UNOBSERVABLE : IfThenElseBehavior (true case) 	
+passivate in s5!
+when in s5 and receive Capture go to s6!
+hold in s6 for time 1!
+after s6 output Alert!
+from s6 go to s7!		
+hold in s7 for time 1!
+from s7 go to s2! //UNOBSERVABLE : Repeat loop "
+DVS_115,Elaboration,Non-deterministic,"In the internal event of s4, if the perception reaches the threshold, increment the counter and go to s5; otherwise, go to s7 for 1 unit.","internal event for s4
+<%
+if(perception.getValue() >= perceptionThreshold.getValue()) {
+	countperceptionThreshold++;
+	passivateIn(""s5"");
+}
+else {
+	holdIn(""s7"",1.0);
+}
+%>!"
+DVS_116,Elaboration,Tagged Block (Output),"In the exit event of state s6, add the image object to the outAlert port.","output event for s6 <% output.add(outAlert, image); %>!"
+DVS_117,Elaboration,Additional Code,"Declare the model metadata: isMediator = false and typeCons = ""CrowdGateway"".","add additional code <% public final boolean isMediator = false; public final String typeCons = ""CrowdGateway""; %>!"
+DVS_118,Elaboration,Additional Code,Implement writeCountersData() saving the three counters in CSV and resetting them after writing.,"add additional code
+<%
+	private File getSrcModelsDirectory() {
+		URI dirUri = null;
+		File dir = null;
+		try {
+			dirUri = this.getClass().getResource(""."").toURI();
+			dir = new File(dirUri);
+		} catch (URISyntaxException e) {
+		}
+		while (dir != null && dir.getParentFile() != null) {
+			if (dir.getName().equalsIgnoreCase(""bin"")) {
+				return new File(dir.getParentFile(), ""src/Models"");
+			}
+			dir = dir.getParentFile();
+		}
+		return null;
+	}
+	public void writeCountersData() {
+		String dirPath = getSrcModelsDirectory().getAbsolutePath() + ""/result"";
+		
+		if(!new File(dirPath).exists()) {
+		new File(dirPath).mkdir();
+	}
+	try{
+		BufferedWriter writer = new BufferedWriter(new FileWriter(dirPath + ""/Result.csv"",true));
+		writer.write(getName() + "";"");
+		writer.write(""countVisualPerceptionReceived = "" + Integer.toString(countVisualPerceptionReceived) + "";"");
+		countVisualPerceptionReceived = 0;
+		writer.write(""countCaptureReceived = "" + Integer.toString(countCaptureReceived) + "";"");
+		countCaptureReceived = 0;
+		writer.write(""countperceptionThreshold = "" + Integer.toString(countperceptionThreshold) + "";"");
+		countperceptionThreshold = 0;
+		writer.newLine();
+		writer.close();
+	}catch(Exception e) {}
+	}
+%>!"
+DVS_119,FDDEVS,Dynamic Removal,"Configure the model to accept the message ""Remove"" in states s0 to s7, always transitioning to the state RemoveC.","when in s0 and receive Remove go to RemoveC!
+when in s1 and receive Remove go to RemoveC!
+when in s2 and receive Remove go to RemoveC!
+when in s3 and receive Remove go to RemoveC!
+when in s4 and receive Remove go to RemoveC!
+when in s5 and receive Remove go to RemoveC!
+when in s6 and receive Remove go to RemoveC!
+when in s7 and receive Remove go to RemoveC!
+
+generates output on Remove with type AtomicModelImpl!
+hold in RemoveC for time 1!
+after RemoveC output Remove!
+from RemoveC go to RemoveC!"
+DVS_120,Protocol,Port Configuration,Set up the model to accept typed inputs in Remove and untyped inputs in ReorganizeArchitecture and various Add commands.,"accepts input on Remove with type AtomicModelImpl!
+accepts input on ReorganizeArchitecture!
+accepts input on AddSensor!
+accepts input on AddGateway!
+accepts input on AddCrowd!
+accepts input on AddCrowdGateway!
+accepts input on AddDrone!
+accepts input on AddDroneBasis!"
+DVS_121,Elaboration,Variables,"Declare control variables: toRemove, auxRecConst (list), flagAddData (bool), simulationTime (long), and syncCount (int).","use toRemove with type AtomicModelImpl!
+use auxRecConst with type ArrayList<AtomicModelImpl>!
+use flagAddData with type boolean!
+use simulationTime with type long!
+use syncCount with type int!
+use sensors with type ArrayList<AtomicModelImpl>!
+use gateways with type ArrayList<AtomicModelImpl>!
+use transmitters with type ArrayList<AtomicModelImpl>!
+use drones with type ArrayList<AtomicModelImpl>!
+use droneBasiss with type ArrayList<AtomicModelImpl>!
+use droneTransmitters with type ArrayList<AtomicModelImpl>!
+use crowds with type ArrayList<AtomicModelImpl>!
+use crowdGateways with type ArrayList<AtomicModelImpl>!
+use crowdTransmitters with type ArrayList<AtomicModelImpl>!
+
+use mS4MESimulationInterface with type MS4MESimulationInterface!"
+DVS_122,Elaboration,Variables,"Declare nine ArrayList<AtomicModelImpl> lists for categories such as sensors, gateways, drones, crowds, etc.","use toRemove with type AtomicModelImpl!
+use auxRecConst with type ArrayList<AtomicModelImpl>!
+use flagAddData with type boolean!
+use simulationTime with type long!
+use syncCount with type int!
+use sensors with type ArrayList<AtomicModelImpl>!
+use gateways with type ArrayList<AtomicModelImpl>!
+use transmitters with type ArrayList<AtomicModelImpl>!
+use drones with type ArrayList<AtomicModelImpl>!
+use droneBasiss with type ArrayList<AtomicModelImpl>!
+use droneTransmitters with type ArrayList<AtomicModelImpl>!
+use crowds with type ArrayList<AtomicModelImpl>!
+use crowdGateways with type ArrayList<AtomicModelImpl>!
+use crowdTransmitters with type ArrayList<AtomicModelImpl>!
+
+use mS4MESimulationInterface with type MS4MESimulationInterface!"
+DVS_123,Elaboration,Additional Code,Declare public static fields for shared lists and private static counters for each type of constituent.,"add additional code
+<%
+public static ArrayList<AtomicModelImpl> originalConstituents;
+public static ArrayList<AtomicModelImpl> constituents;
+public static ArrayList<Connection> connections;
+private static int contRecSensor;
+private static int contRecGateway;
+private static int contRecTransmitter;
+private static int contRecDrone;
+private static int contRecDroneBasis;
+private static int contRecDroneTransmitter;
+private static int contRecCrowd;
+private static int contRecCrowdGateway;
+private static int contRecCrowdTransmitter;
+%>!"
+DVS_124,FDDEVS,Controller SM,"Set the initial state w8AddOrRemove as passive, which absorbs all structural control messages.","to start passivate in w8AddOrRemove!
+when in w8AddOrRemove and receive WriteData go to sendWriteData!
+when in w8AddOrRemove and receive Remove go to w8AddOrRemove!
+when in w8AddOrRemove and receive ReorganizeArchitecture go to w8AddOrRemove!
+when in w8AddOrRemove and receive AddSensor go to w8AddOrRemove!
+when in w8AddOrRemove and receive AddGateway go to w8AddOrRemove!
+when in w8AddOrRemove and receive AddCrowd go to w8AddOrRemove!
+when in w8AddOrRemove and receive AddCrowdGateway go to w8AddOrRemove!
+when in w8AddOrRemove and receive AddDrone go to w8AddOrRemove!
+when in w8AddOrRemove and receive AddDroneBasis go to w8AddOrRemove!"
+DVS_125,FDDEVS,Controller SM,"After sendWriteData (1u), emit WriteData and go to sendContinue (1u), which emits Continue and returns to the beginning.","hold in sendWriteData for time 1!
+after sendWriteData output WriteData!
+from sendWriteData go to sendContinue!
+hold in sendContinue for time 1!
+after sendContinue output Continue!
+from sendContinue go to w8AddOrRemove!"
+DVS_126,Elaboration,Tagged Block (Init),"Initialize the DRC: instantiate lists, clear log files, capture the initial time, and locate the simulation interface.","initialize variables
+<%
+syncCount = 1;
+sensors = new ArrayList<AtomicModelImpl>();
+gateways = new ArrayList<AtomicModelImpl>();
+transmitters = new ArrayList<AtomicModelImpl>();
+drones = new ArrayList<AtomicModelImpl>();
+droneBasiss = new ArrayList<AtomicModelImpl>();
+droneTransmitters = new ArrayList<AtomicModelImpl>();
+crowds = new ArrayList<AtomicModelImpl>();
+crowdGateways = new ArrayList<AtomicModelImpl>();
+crowdTransmitters = new ArrayList<AtomicModelImpl>();
+flagAddData = true;
+constituents = new ArrayList<AtomicModelImpl>();
+connections = new ArrayList<Connection>();
+new File(""Result/Result.txt"").delete();
+simulationTime = System.currentTimeMillis();
+
+for(AtomicModel e : getParent().getChildren()) {
+	if(e instanceof MS4MESimulationInterface) {
+		mS4MESimulationInterface = (MS4MESimulationInterface) e;
+	}
+}
+if(originalConstituents == null) 
+	originalConstituents = initializeConstituents();
+%>!"
+DVS_127,Elaboration,External Event,"In the w8AddOrRemove state, upon receiving ReorganizeArchitecture, execute the reorganization operator.",external event for w8AddOrRemove with ReorganizeArchitecture <% reorganizationOperator(); %>!
+DVS_128,Elaboration,External Event,"In the w8AddOrRemove state, upon receiving Remove, extract the model and execute the deletion operator.",external event for w8AddOrRemove with Remove <% toRemove = (AtomicModelImpl) messageList.get(0).getData(); deletionOperator(toRemove); %>!
+DVS_129,Elaboration,External Event,"Implement six external events for adding constituents, calling additionOperator() with the string of the corresponding type.","external event for w8AddOrRemove with AddSensor <% additionOperator(""sensor""); %>!"
+DVS_130,Elaboration,Additional Code,"Implement additionOperator: rebuilds architecture, instantiates new model, adds to parent, and synchronizes.","add additional code
+<%
+
+	public void additionOperator(String constType) {
+		connections.clear();
+		for(Coupling e : getParent().getCouplings()) {
+			if(!e.getSource().getName().contains(""StimuliGenerator"") && !e.getDestination().getName().contains(""DRC""))
+				connections.add(new Connection((AtomicModelImpl) e.getSource(), e.getSourcePort(), (AtomicModelImpl)e.getDestination(), e.getDestinationPort()));
+		}	
+		constituents = initializeConstituents();
+		if(constType.equalsIgnoreCase(""sensor"")) {
+			AtomicModelImpl toAdd = null;
+			for(AtomicModelImpl e : originalConstituents) {
+				if(getTypeCons(e).equals(""Sensor"")) {
+					try{
+						toAdd = e.getClass().newInstance();
+						break;
+					}catch(Exception LastHope) {}
+				}
+			}
+			addConstituentSensor(toAdd, true);
+			syncModel();
+			return;
+		}
+		if(constType.equalsIgnoreCase(""gateway"")) {
+			AtomicModelImpl toAdd = null;
+			for(AtomicModelImpl e : originalConstituents) {
+				if(getTypeCons(e).equals(""Gateway"")) {
+					try{
+						toAdd = e.getClass().newInstance();
+						break;
+					}catch(Exception LastHope) {}
+				}
+			}
+			CoupledModelImpl parent = (CoupledModelImpl)getParent();
+			toAdd.setName(""GatewayRec"" + contRecGateway);
+			contRecGateway++;
+			parent.addChildModel(toAdd);
+			ArrayList<AtomicModelImpl> aux = new ArrayList<AtomicModelImpl>();
+			ArrayList<Connection> auxC = new ArrayList<Connection>();
+			Random rand = new Random();
+			
+			gateways.add(toAdd);
+			
+			for (Connection e : connections) {
+				if (getTypeCons(e.inClass).equals(""Transmitter"")) {
+					auxC.add(e);
+					aux.add(e.inClass);
+				} else if (getTypeCons(e.outClass).equals(""Transmitter"")) {
+					auxC.add(e);
+					aux.add(e.outClass);
+				}
+			}
+			
+			for (AtomicModelImpl e : aux) {
+				parent.removeChildModel(e);
+				mS4MESimulationInterface.finalizeConstituent(e);
+				constituents.remove(e);
+				transmitters.remove(e);
+			}
+			aux.clear();
+			connections.removeAll(auxC);
+			
+			aux.clear();
+			for(AtomicModelImpl e : sensors)
+				if(!aux.contains(e))
+					aux.add(e);    
+			for(AtomicModelImpl e : gateways) {
+				if(aux.size() == 0) {
+					break;
+				}
+				int j = rand.nextInt(aux.size());
+				recConnectionAdd(aux.get(j), e);
+				aux.remove(aux.get(j));
+			}
+			while (aux.size() > 0) {
+				int j = rand.nextInt(aux.size());
+				addConstituentSensor(aux.get(j), false);
+				aux.remove(aux.get(j));
+			}
+			
+			parent.addCoupling(toAdd.getOutputPort(""outRemove""),this.inRemove);
+			constituents.addAll(gateways);
+			syncModel();
+			return;
+		}
+		if(constType.equalsIgnoreCase(""crowd"")) {
+			AtomicModelImpl toAdd = null;
+			for(AtomicModelImpl e : originalConstituents) {
+				if(getTypeCons(e).equals(""Crowd"")) {
+					try{
+						toAdd = e.getClass().newInstance();
+						break;
+					}catch(Exception LastHope) {}
+				}
+			}
+			addConstituentCrowd(toAdd, true);
+			syncModel();
+			return;
+		}
+		if(constType.equalsIgnoreCase(""crowdGateway"")) {
+			AtomicModelImpl toAdd = null;
+			for(AtomicModelImpl e : originalConstituents) {
+				if(getTypeCons(e).equals(""CrowdGateway"")) {
+					try{
+						toAdd = e.getClass().newInstance();
+						break;
+					}catch(Exception LastHope) {}
+				}
+			}
+			CoupledModelImpl parent = (CoupledModelImpl)getParent();
+			toAdd.setName(""CrowdGatewayRec"" + contRecCrowdGateway);
+			contRecCrowdGateway++;
+			parent.addChildModel(toAdd);
+			ArrayList<AtomicModelImpl> aux = new ArrayList<AtomicModelImpl>();
+			ArrayList<Connection> auxC = new ArrayList<Connection>();
+			Random rand = new Random();
+			
+			crowdGateways.add(toAdd);
+			
+			for (Connection e : connections) {
+				if (getTypeCons(e.inClass).equals(""CrowdTransmitter"")) {
+					auxC.add(e);
+					aux.add(e.inClass);
+				} else if (getTypeCons(e.outClass).equals(""CrowdTransmitter"")) {
+					auxC.add(e);
+					aux.add(e.outClass);
+				}
+			}
+			
+			for (AtomicModelImpl e : aux) {
+				parent.removeChildModel(e);
+				mS4MESimulationInterface.finalizeConstituent(e);
+				constituents.remove(e);
+				crowdTransmitters.remove(e);
+			}
+			aux.clear();
+			connections.removeAll(auxC);
+			
+			aux.clear();
+			for(AtomicModelImpl e : crowds)
+				if(!aux.contains(e))
+					aux.add(e);    
+			for(AtomicModelImpl e : crowdGateways) {
+				if(aux.size() == 0) {
+					break;
+				}
+				int j = rand.nextInt(aux.size());
+				recConnectionAdd(aux.get(j), e);
+				aux.remove(aux.get(j));
+			}
+			while (aux.size() > 0) {
+				int j = rand.nextInt(aux.size());
+				addConstituentCrowd(aux.get(j), false);
+				aux.remove(aux.get(j));
+			}
+			
+			parent.addCoupling(toAdd.getOutputPort(""outRemove""),this.inRemove);
+			constituents.addAll(crowdGateways);
+			syncModel();
+			return;
+		}
+		if(constType.equalsIgnoreCase(""drone"")) {
+			AtomicModelImpl toAdd = null;
+			for(AtomicModelImpl e : originalConstituents) {
+				if(getTypeCons(e).equals(""Drone"")) {
+					try{
+						toAdd = e.getClass().newInstance();
+						break;
+					}catch(Exception LastHope) {}
+				}
+			}
+			addConstituentDrone(toAdd, true);
+			syncModel();
+			return;
+		}
+		if(constType.equalsIgnoreCase(""droneBasis"")) {
+			AtomicModelImpl toAdd = null;
+			for(AtomicModelImpl e : originalConstituents) {
+				if(getTypeCons(e).equals(""DroneBasis"")) {
+					try{
+						toAdd = e.getClass().newInstance();
+						break;
+					}catch(Exception LastHope) {}
+				}
+			}
+			CoupledModelImpl parent = (CoupledModelImpl)getParent();
+			toAdd.setName(""DroneBasisRec"" + contRecDroneBasis);
+			contRecDroneBasis++;
+			parent.addChildModel(toAdd);
+			ArrayList<AtomicModelImpl> aux = new ArrayList<AtomicModelImpl>();
+			ArrayList<Connection> auxC = new ArrayList<Connection>();
+			Random rand = new Random();
+			
+			droneBasiss.add(toAdd);
+			
+			for (Connection e : connections) {
+				if (getTypeCons(e.inClass).equals(""DroneTransmitter"")) {
+					auxC.add(e);
+					aux.add(e.inClass);
+				} else if (getTypeCons(e.outClass).equals(""DroneTransmitter"")) {
+					auxC.add(e);
+					aux.add(e.outClass);
+				}
+			}
+			
+			for (AtomicModelImpl e : aux) {
+				parent.removeChildModel(e);
+				mS4MESimulationInterface.finalizeConstituent(e);
+				constituents.remove(e);
+				droneTransmitters.remove(e);
+			}
+			aux.clear();
+			connections.removeAll(auxC);
+			
+			aux.clear();
+			for(AtomicModelImpl e : drones)
+				if(!aux.contains(e))
+					aux.add(e);    
+			for(AtomicModelImpl e : droneBasiss) {
+				if(aux.size() == 0) {
+					break;
+				}
+				int j = rand.nextInt(aux.size());
+				recConnectionAdd(aux.get(j), e);
+				aux.remove(aux.get(j));
+			}
+			while (aux.size() > 0) {
+				int j = rand.nextInt(aux.size());
+				addConstituentDrone(aux.get(j), false);
+				aux.remove(aux.get(j));
+			}
+			
+			parent.addCoupling(toAdd.getOutputPort(""outRemove""),this.inRemove);
+			constituents.addAll(droneBasiss);
+			syncModel();
+			return;
+		}
+	}
+	
+	private void addConstituentSensor(AtomicModelImpl toAdd, boolean add) {
+		CoupledModelImpl parent = (CoupledModelImpl)getParent();
+		if(add) {
+			toAdd.setName(""SensorRec"" + contRecSensor);
+			parent.addChildModel(toAdd);
+			StimuliGeneratorSensor4 toAdd2 = new StimuliGeneratorSensor4(""StimuliGeneratorSensorRec""+contRecSensor);
+			parent.addChildModel(toAdd2);
+				
+			for(Port<?> e : toAdd2.getOutputPorts()) {
+				Port<?> aux = toAdd.getInputPort(e.getName().replace(""out"",""in""));
+				if(aux != null) {
+					parent.addCoupling(e, aux);
+					mS4MESimulationInterface.newLink(e, aux);
+				}
+			}
+		}
+		if(constituents.size() > 0 ) {
+		AtomicModelImpl aux = getToConnectModel(toAdd);
+			if(aux != null) {
+			recConnectionAdd(toAdd,aux);
+			}
+		}
+		if(add) {
+			constituents.add(toAdd);
+			sensors.add(toAdd);
+			parent.addCoupling(toAdd.getOutputPort(""outRemove""),this.inRemove);
+			contRecSensor++;
+		}
+	}
+	private void addConstituentCrowd(AtomicModelImpl toAdd, boolean add) {
+		CoupledModelImpl parent = (CoupledModelImpl)getParent();
+		if(add) {
+			toAdd.setName(""CrowdRec"" + contRecCrowd);
+			parent.addChildModel(toAdd);
+			StimuliGeneratorCrowd2 toAdd2 = new StimuliGeneratorCrowd2(""StimuliGeneratorCrowdRec""+contRecCrowd);
+			parent.addChildModel(toAdd2);
+				
+			for(Port<?> e : toAdd2.getOutputPorts()) {
+				Port<?> aux = toAdd.getInputPort(e.getName().replace(""out"",""in""));
+				if(aux != null) {
+					parent.addCoupling(e, aux);
+					mS4MESimulationInterface.newLink(e, aux);
+				}
+			}
+		}
+		if(constituents.size() > 0 ) {
+		AtomicModelImpl aux = getToConnectModel(toAdd);
+			if(aux != null) {
+			recConnectionAdd(toAdd,aux);
+			}
+		}
+		if(add) {
+			constituents.add(toAdd);
+			crowds.add(toAdd);
+			parent.addCoupling(toAdd.getOutputPort(""outRemove""),this.inRemove);
+			contRecCrowd++;
+		}
+	}
+	private void addConstituentDrone(AtomicModelImpl toAdd, boolean add) {
+		CoupledModelImpl parent = (CoupledModelImpl)getParent();
+		if(add) {
+			toAdd.setName(""DroneRec"" + contRecDrone);
+			parent.addChildModel(toAdd);
+			StimuliGeneratorDrone4 toAdd2 = new StimuliGeneratorDrone4(""StimuliGeneratorDroneRec""+contRecDrone);
+			parent.addChildModel(toAdd2);
+				
+			for(Port<?> e : toAdd2.getOutputPorts()) {
+				Port<?> aux = toAdd.getInputPort(e.getName().replace(""out"",""in""));
+				if(aux != null) {
+					parent.addCoupling(e, aux);
+					mS4MESimulationInterface.newLink(e, aux);
+				}
+			}
+		}
+		if(constituents.size() > 0 ) {
+		AtomicModelImpl aux = getToConnectModel(toAdd);
+			if(aux != null) {
+			recConnectionAdd(toAdd,aux);
+			}
+		}
+		if(add) {
+			constituents.add(toAdd);
+			drones.add(toAdd);
+			parent.addCoupling(toAdd.getOutputPort(""outRemove""),this.inRemove);
+			contRecDrone++;
+		}
+	}
+%>!"
+DVS_131,Elaboration,Additional Code,"Implemente deletionOperator: remove o constituinte e seu gerador de estímulos, atualiza listas e sincroniza o modelo.","add additional code
+<%
+	public void deletionOperator(AtomicModel toRemove) {
+		connections.clear();
+		for(Coupling e : getParent().getCouplings()) {
+			if(!e.getSource().getName().contains(""StimuliGenerator"") && !e.getDestination().getName().contains(""DRC""))
+				connections.add(new Connection((AtomicModelImpl) e.getSource(), e.getSourcePort(), (AtomicModelImpl)e.getDestination(), e.getDestinationPort()));
+		}	
+		constituents = initializeConstituents();
+		this.toRemove = (AtomicModelImpl) toRemove;
+		removeConstituent((AtomicModelImpl) toRemove);
+		if(toRemove instanceof Mediator4)
+			transmitters.remove(toRemove);
+		if(toRemove instanceof CrowdGateway1)
+			crowdGateways.remove(toRemove);
+		if(toRemove instanceof Mediator3)
+			transmitters.remove(toRemove);
+		if(toRemove instanceof Drone4)
+			drones.remove(toRemove);
+		if(toRemove instanceof Drone3)
+			drones.remove(toRemove);
+		if(toRemove instanceof Drone2)
+			drones.remove(toRemove);
+		if(toRemove instanceof Drone1)
+			drones.remove(toRemove);
+		if(toRemove instanceof CrowdMediator1)
+			crowdTransmitters.remove(toRemove);
+		if(toRemove instanceof CrowdMediator2)
+			crowdTransmitters.remove(toRemove);
+		if(toRemove instanceof Crowd1)
+			crowds.remove(toRemove);
+		if(toRemove instanceof Crowd2)
+			crowds.remove(toRemove);
+		if(toRemove instanceof Sensor4)
+			sensors.remove(toRemove);
+		if(toRemove instanceof DroneMediator1)
+			droneTransmitters.remove(toRemove);
+		if(toRemove instanceof DroneMediator2)
+			droneTransmitters.remove(toRemove);
+		if(toRemove instanceof Sensor2)
+			sensors.remove(toRemove);
+		if(toRemove instanceof DroneBasis1)
+			droneBasiss.remove(toRemove);
+		if(toRemove instanceof Sensor3)
+			sensors.remove(toRemove);
+		if(toRemove instanceof DroneBasis2)
+			droneBasiss.remove(toRemove);
+		if(toRemove instanceof Mediator2)
+			transmitters.remove(toRemove);
+		if(toRemove instanceof Sensor1)
+			sensors.remove(toRemove);
+		if(toRemove instanceof Mediator1)
+			transmitters.remove(toRemove);
+		if(toRemove instanceof Gateway)
+			gateways.remove(toRemove);
+		if(toRemove instanceof DroneMediator3)
+			droneTransmitters.remove(toRemove);
+		if(toRemove instanceof DroneMediator4)
+			droneTransmitters.remove(toRemove);
+		
+		AtomicModel sg = null;
+		for(AtomicModel e : getParent().getChildren()) {
+			if(e.getName().equals(""StimuliGenerator"" + toRemove.getName())) {
+				sg = e;
+				break;
+			}
+		}
+		if(sg != null) {
+			getParent().removeChildModel(sg);
+			mS4MESimulationInterface.finalizeConstituent((AtomicModelImpl) sg);
+		}	
+		syncModel();
+	}
+%>!"
+DVS_132,Elaboration,Additional Code,Implement reorganizationOperator: remove mediators and randomly redistribute constituents among gateways/bases.,"add additional code
+<%
+	public void reorganizationOperator() {
+		connections.clear();
+		for(Coupling e : getParent().getCouplings()) {
+			if(!e.getSource().getName().contains(""StimuliGenerator"") && !e.getDestination().getName().contains(""DRC""))
+				connections.add(new Connection((AtomicModelImpl) e.getSource(), e.getSourcePort(), (AtomicModelImpl)e.getDestination(), e.getDestinationPort()));
+		}	
+		constituents = initializeConstituents();
+		if(flagAddData) {
+			constituents = initializeConstituents();
+			if(originalConstituents == null) {
+				originalConstituents = initializeConstituents();
+			}
+			connections = initializeConnections();
+			flagAddData = false;
+			
+		}
+		removeMediators();
+		ArrayList<AtomicModelImpl> aux = new ArrayList<AtomicModelImpl>();
+		Random rand = new Random();
+		connections.clear();
+		int s;
+		
+		aux.clear();
+		for(AtomicModelImpl e : sensors)
+			if(!aux.contains(e))
+				aux.add(e);
+		s = gateways.size();
+		for(AtomicModelImpl e : gateways) {
+			if(aux.size() == 0) {
+				break;
+			}
+			int i = ((aux.size() - s)  > 0) ? (rand.nextInt(aux.size() - s--) + 1) : 1;
+			if(i == 0)
+				i = 1;
+			for(; i > 0; i--) {
+				int j = rand.nextInt(aux.size());
+				recConnectionAdd(aux.get(j), e);
+				aux.remove(aux.get(j));
+			}
+		}
+		while(aux.size() > 0) {
+			int j = rand.nextInt(aux.size());
+			addConstituentSensor(aux.get(j), false);
+			aux.remove(aux.get(j));
+		}
+		aux.clear();
+		for(AtomicModelImpl e : crowds)
+			if(!aux.contains(e))
+				aux.add(e);
+		s = crowdGateways.size();
+		for(AtomicModelImpl e : crowdGateways) {
+			if(aux.size() == 0) {
+				break;
+			}
+			int i = ((aux.size() - s)  > 0) ? (rand.nextInt(aux.size() - s--) + 1) : 1;
+			if(i == 0)
+				i = 1;
+			for(; i > 0; i--) {
+				int j = rand.nextInt(aux.size());
+				recConnectionAdd(aux.get(j), e);
+				aux.remove(aux.get(j));
+			}
+		}
+		while(aux.size() > 0) {
+			int j = rand.nextInt(aux.size());
+			addConstituentCrowd(aux.get(j), false);
+			aux.remove(aux.get(j));
+		}
+		aux.clear();
+		for(AtomicModelImpl e : drones)
+			if(!aux.contains(e))
+				aux.add(e);
+		s = droneBasiss.size();
+		for(AtomicModelImpl e : droneBasiss) {
+			if(aux.size() == 0) {
+				break;
+			}
+			int i = ((aux.size() - s)  > 0) ? (rand.nextInt(aux.size() - s--) + 1) : 1;
+			if(i == 0)
+				i = 1;
+			for(; i > 0; i--) {
+				int j = rand.nextInt(aux.size());
+				recConnectionAdd(aux.get(j), e);
+				aux.remove(aux.get(j));
+			}
+		}
+		while(aux.size() > 0) {
+			int j = rand.nextInt(aux.size());
+			addConstituentDrone(aux.get(j), false);
+			aux.remove(aux.get(j));
+		}
+		syncModel();
+	}
+%>!"
+DVS_133,Elaboration,Additional Code,"Implement verifyToConnectModel: validates if the pair of types (e.g., Sensor-Gateway) is compatible for connection.","add additional code 
+<%
+	private boolean verifyToConnectModel(AtomicModelImpl a1, AtomicModelImpl a2) {
+		if(a1 == null || a2 == null)
+			return false;
+		if(getTypeCons(a1).equals(""Sensor"")&&getTypeCons(a2).equals(""Sensor"")) {
+			return true;
+		}
+		else if(getTypeCons(a1).equals(""Sensor"")&&getTypeCons(a2).equals(""Gateway"")) {
+			return true;
+		}
+		else if(getTypeCons(a1).equals(""Gateway"")&&getTypeCons(a2).equals(""Sensor"")) {
+			return true;
+		}
+		else if(getTypeCons(a1).equals(""Drone"")&&getTypeCons(a2).equals(""DroneBasis"")) {
+			return true;
+		}
+		else if(getTypeCons(a1).equals(""DroneBasis"")&&getTypeCons(a2).equals(""Drone"")) {
+			return true;
+		}
+		else if(getTypeCons(a1).equals(""Crowd"")&&getTypeCons(a2).equals(""CrowdGateway"")) {
+			return true;
+		}
+		else if(getTypeCons(a1).equals(""CrowdGateway"")&&getTypeCons(a2).equals(""Crowd"")) {
+			return true;
+		}
+		return false;
+	}
+%>!"
+DVS_134,Elaboration,Additional Code,"Implement getCompatibleMediator: instantiate the correct mediator (Transmitter, etc.) for the given pair of models.","add additional code 
+<%
+	private AtomicModelImpl getCompatibleMediator(AtomicModelImpl a1, AtomicModelImpl a2) {
+		AtomicModelImpl toReturn = null;
+		if(a1 == null || a2 == null)
+			return null;
+		if(getTypeCons(a1).equals(""Sensor"")&&getTypeCons(a2).equals(""Sensor"")) {
+			for(AtomicModelImpl e : originalConstituents) {
+				if(getTypeCons(e).equals(""Transmitter"")) {
+					try{
+						toReturn = e.getClass().newInstance();
+						toReturn.setName(""TransmitterRec""+contRecTransmitter);
+						contRecTransmitter++;
+						getParent().addChildModel(toReturn);
+						constituents.add(toReturn);
+						return toReturn;
+					}catch(Exception TheOnlyException) {}
+				}
+			}
+		}
+		else if(getTypeCons(a1).equals(""Sensor"")&&getTypeCons(a2).equals(""Gateway"")) {
+			for(AtomicModelImpl e : originalConstituents) {
+				if(getTypeCons(e).equals(""Transmitter"")) {
+					try{
+						toReturn = e.getClass().newInstance();
+						toReturn.setName(""TransmitterRec""+contRecTransmitter);
+						contRecTransmitter++;
+						getParent().addChildModel(toReturn);
+						constituents.add(toReturn);
+						return toReturn;
+					}catch(Exception TheOnlyException) {}
+				}
+			}
+		}
+		else if(getTypeCons(a1).equals(""Gateway"")&&getTypeCons(a2).equals(""Sensor"")) {
+			for(AtomicModelImpl e : originalConstituents) {
+				if(getTypeCons(e).equals(""Transmitter"")) {
+					try{
+						toReturn = e.getClass().newInstance();
+						toReturn.setName(""TransmitterRec""+contRecTransmitter);
+						contRecTransmitter++;
+						getParent().addChildModel(toReturn);
+						constituents.add(toReturn);
+						return toReturn;
+					}catch(Exception TheOnlyException) {}
+				}
+			}
+		}
+		else if(getTypeCons(a1).equals(""Drone"")&&getTypeCons(a2).equals(""DroneBasis"")) {
+			for(AtomicModelImpl e : originalConstituents) {
+				if(getTypeCons(e).equals(""DroneTransmitter"")) {
+					try{
+						toReturn = e.getClass().newInstance();
+						toReturn.setName(""DroneTransmitterRec""+contRecDroneTransmitter);
+						contRecDroneTransmitter++;
+						getParent().addChildModel(toReturn);
+						constituents.add(toReturn);
+						return toReturn;
+					}catch(Exception TheOnlyException) {}
+				}
+			}
+		}
+		else if(getTypeCons(a1).equals(""DroneBasis"")&&getTypeCons(a2).equals(""Drone"")) {
+			for(AtomicModelImpl e : originalConstituents) {
+				if(getTypeCons(e).equals(""DroneTransmitter"")) {
+					try{
+						toReturn = e.getClass().newInstance();
+						toReturn.setName(""DroneTransmitterRec""+contRecDroneTransmitter);
+						contRecDroneTransmitter++;
+						getParent().addChildModel(toReturn);
+						constituents.add(toReturn);
+						return toReturn;
+					}catch(Exception TheOnlyException) {}
+				}
+			}
+		}
+		else if(getTypeCons(a1).equals(""Crowd"")&&getTypeCons(a2).equals(""CrowdGateway"")) {
+			for(AtomicModelImpl e : originalConstituents) {
+				if(getTypeCons(e).equals(""CrowdTransmitter"")) {
+					try{
+						toReturn = e.getClass().newInstance();
+						toReturn.setName(""CrowdTransmitterRec""+contRecCrowdTransmitter);
+						contRecCrowdTransmitter++;
+						getParent().addChildModel(toReturn);
+						constituents.add(toReturn);
+						return toReturn;
+					}catch(Exception TheOnlyException) {}
+				}
+			}
+		}
+		else if(getTypeCons(a1).equals(""CrowdGateway"")&&getTypeCons(a2).equals(""Crowd"")) {
+			for(AtomicModelImpl e : originalConstituents) {
+				if(getTypeCons(e).equals(""CrowdTransmitter"")) {
+					try{
+						toReturn = e.getClass().newInstance();
+						toReturn.setName(""CrowdTransmitterRec""+contRecCrowdTransmitter);
+						contRecCrowdTransmitter++;
+						getParent().addChildModel(toReturn);
+						constituents.add(toReturn);
+						return toReturn;
+					}catch(Exception TheOnlyException) {}
+				}
+			}
+		}
+		return toReturn;
+	}
+%>!"
+DVS_135,Elaboration,Additional Code,Implement recConnectionAdd: creates bidirectional couplings between two models via a mediator and notifies the simulation.,"add additional code <% private void recConnectionAdd(AtomicModelImpl a1, AtomicModelImpl a2) { AtomicModelImpl m = getCompatibleMediator(a1,a2); holdInInitialState(a1); holdInInitialState(a2); if(getTypeCons(a1).equals(""Sensor"")&&getTypeCons(a2).equals(""Sensor"")) { parent.addCoupling(a1.getOutputPort(""outMeasure""), m.getInputPort(""inMeasure"")); mS4MESimulationInterface.newLink(...); connections.add(...); ... } ... } %>!"
+DVS_136,Elaboration,Additional Code,"Implement removeMediators: identifies mediator models, removes them from the system, and clears the transmitter lists.",add additional code <% private void removeMediators() { ArrayList<AtomicModelImpl> aux = new ArrayList<AtomicModelImpl>(); for(AtomicModelImpl e : constituents) { if(getIsMediator(a)) aux.add(a); } for(AtomicModelImpl e : aux) { constituents.remove(e); parent.removeChildModel(e); mS4MESimulationInterface.finalizeConstituent(e); } transmitters.clear(); crowdTransmitters.clear(); droneTransmitters.clear(); } %>!
+DVS_137,Elaboration,Additional Code,Implement initializeConstituents: it goes through the children of the parent model and catalogs all known atomic models.,add additional code <% private ArrayList initializeConstituents() { ... if(e instanceof Sensor1) ... } %>!
+DVS_138,Elaboration,Additional Code,"Declare the private inner class Connection with four public fields (outClass, outPort, inClass, inPort) and a constructor that initializes them, to represent a coupling between two atomic models.","add additional code <% private class Connection { public AtomicModelImpl outClass; public Port<?> outPort; public AtomicModelImpl inClass; public Port<?> inPort; public Connection(AtomicModelImpl outClass, Port<?> outPort, AtomicModelImpl inClass, Port<?> inPort) { this.inPort = inPort; this.inClass = inClass; this.outPort = outPort; this.outClass = outClass; } } %>!"
+DVS_139,Elaboration,Additional Code,"Implement getTypeCons(AtomicModelImpl a) and getIsMediator(AtomicModelImpl a): for each of the 23 types of constituents, cast and return the value of the corresponding public field (typeCons or isMediator).","add additional code <% public String getTypeCons(AtomicModelImpl a) { if(a instanceof Sensor1) { Sensor1 b = (Sensor1) a; return b.typeCons; } ... return """"; } private Boolean getIsMediator(AtomicModelImpl a) { if(a instanceof Sensor1) { Sensor1 b = (Sensor1) a; return b.isMediator; } ... return false; } %>!"
+DVS_140,Elaboration,Additional Code,Implement syncModel: generates .sosadl file with the updated architecture and increments the synchronization counter.,"add additional code
+<%
+	private void syncModel() {
+		try{
+			ArrayList<Connection> aux = new ArrayList<Connection>();
+			LinkedHashMap<String,String> map = aux3SyncModel();
+			if(!new File(""Model"").exists()) {
+				new File(""Model"").mkdir();
+			}
+			
+			connections.clear();
+			for(Coupling a : getParent().getCouplings()) {
+				Connection e = new Connection((AtomicModelImpl)a.getSource(), a.getSourcePort(), (AtomicModelImpl)a.getDestination(), a.getDestinationPort());
+				if ( !( e.inPort.getName().contains(""Checked"") || e.outClass.getName().contains(""StimuliGenerator"") || e.inPort.getName().contains(""Remove""))) { 
+					if(e != null && e.inClass != null && e.outClass != null && e.inPort != null && e.outPort != null) {
+						connections.add(e);
+					}
+				} 
+			}
+			
+			BufferedWriter writer = new BufferedWriter(new FileWriter(getModelsDirectory2().getAbsolutePath() + ""/sosadl/""+ getName().replace(""DRC"","""")+""REC""+Integer.toString(syncCount)+"".sosadl""));
+			
+			writer.write(aux1SyncModel());
+			writer.newLine();
+			for(AtomicModel e : getParent().getChildren()) {
+				if(!e.getName().contains(""StimuliGenerator"") && !e.getName().contains(""DRC"") && !e.getName().contains(""ExOp"") ) {
+					writer.write(""			"" + e.getName() + "" is "" + getTypeCons((AtomicModelImpl)e));
+					writer.newLine();
+				}
+			}
+			
+			writer.write(""		}"");
+			writer.newLine();
+			
+			writer.write(""		binding{"");
+			writer.newLine();
+			writer.flush();
+			for(Connection e : connections) {
+				writer.write(""			unify one{ "" + e.outClass.getName()+((map.containsKey(getTypeCons(e.outClass).toUpperCase()+e.outPort.getName().replaceFirst(""out"","""").toUpperCase()))?""::""+map.get(getTypeCons(e.outClass).toUpperCase()+e.outPort.getName().replaceFirst(""out"","""").toUpperCase()):"""")+""::""+e.outPort.getName().replaceFirst(""out"","""") + ""} to one {"" + e.inClass.getName()+((map.containsKey(getTypeCons(e.inClass).toUpperCase()+e.inPort.getName().replaceFirst(""in"","""").toUpperCase()))?""::""+map.get(getTypeCons(e.inClass).toUpperCase()+e.inPort.getName().replaceFirst(""in"","""").toUpperCase()):"""")+""::"" + e.inPort.getName().replaceFirst(""in"","""")+ ""}"" + ((connections.indexOf(e) != connections.size()-1)? "" and"": """"));
+				writer.newLine();
+				
+			} 
+			
+			writer.write(aux2SyncModel());
+			writer.newLine();
+			
+			connections.addAll(aux);
+			writer.close();
+			syncCount++;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	} "
+DVS_141,Elaboration,Additional Code,"Implement aux3SyncModel: maps internal port types to semantic names (e.g., ""SENSORSENSE"" → ""measurement"").","	private LinkedHashMap<String,String> aux3SyncModel() {
+		LinkedHashMap<String,String> a = new LinkedHashMap<String,String>();
+		a.put(""SENSORSENSE"",""measurement"");
+		a.put(""SENSORMEASURE"",""measurement"");
+		a.put(""SENSORPOWERTHRESHOLD"",""energy"");
+		a.put(""SENSORPOWERLEVEL"",""energy"");
+		a.put(""SENSORCOORDINATE"",""location"");
+		a.put(""GATEWAYMEASURE"",""notification"");
+		a.put(""GATEWAYALERT"",""notification"");
+		a.put(""GATEWAYCOORDINATE"",""location"");
+		a.put(""GATEWAYDEPTH"",""request"");
+		a.put(""CROWDPOWERLEVEL"",""battery"");
+		a.put(""CROWDVISUALPERCEPTION"",""percept"");
+		a.put(""CROWDCAPTURE"",""photo"");
+		a.put(""CROWDCOORDINATE"",""location"");
+		a.put(""CROWDGATEWAYVISUALPERCEPTION"",""percept"");
+		a.put(""CROWDGATEWAYCAPTURE"",""photo"");
+		a.put(""CROWDGATEWAYALERT"",""photo"");
+		a.put(""DRONEWATER"",""measurement"");
+		a.put(""DRONEPOWERLEVEL"",""battery"");
+		a.put(""DRONERECHARGE"",""battery"");
+		a.put(""DRONECOORDINATE"",""location"");
+		a.put(""DRONECAPTURE"",""photo"");
+		a.put(""DRONEBASISPOWERLEVEL"",""battery"");
+		a.put(""DRONEBASISRECHARGE"",""battery"");
+		a.put(""DRONEBASISCAPTURE"",""photo"");
+		a.put(""DRONEBASISCOORDINATE"",""location"");
+		a.put(""TRANSMITTERMEASURE"",""transmit"");
+		a.put(""TRANSMITTERCOORDINATE"",""location"");
+		a.put(""CROWDTRANSMITTERCAPTURE"",""transmit"");
+		a.put(""CROWDTRANSMITTERVISUALPERCEPTION"",""transmit"");
+		a.put(""DRONETRANSMITTERCAPTURE"",""transmit"");
+		a.put(""DRONETRANSMITTERRECHARGE"",""transmit"");
+		return a;
+	}"
+DVS_142,Elaboration,External Event,"Upon receiving WriteData: generates a CSV of results, calculates times, and ensures that each constituent saves its own data.","external event for w8AddOrRemove with WriteData
+<%
+	new File(""Result"").mkdir();
+	try{
+		BufferedWriter writer = new BufferedWriter(new FileWriter(""Result/Result.csv"",true));
+		writer.write("" Sensor: ""+ Integer.toString(contRecSensor-1+4)+"";""+"" Gateway: ""+ Integer.toString(contRecGateway-1+1)+"";""+"" Crowd: ""+ Integer.toString(contRecCrowd-1+2)+"";""+"" CrowdGateway: ""+ Integer.toString(contRecCrowdGateway-1+1)+"";""+"" Drone: ""+ Integer.toString(contRecDrone-1+4)+"";""+"" DroneBasis: ""+ Integer.toString(contRecDroneBasis-1+2) + "";"");
+		simulationTime = System.currentTimeMillis() - simulationTime;
+		writer.write(""Simulation time in Millis: = "" + Long.toString(simulationTime) + "";"");
+		simulationTime = System.currentTimeMillis();
+		writer.newLine();
+		writer.close();
+	} catch(Exception e) {}
+	for(AtomicModelImpl e : constituents) {
+		if(e instanceof DroneBasis2) {
+			DroneBasis2 aux = (DroneBasis2) e;
+			aux.writeCountersData();
+		}
+		if(e instanceof DroneBasis1) {
+			DroneBasis1 aux = (DroneBasis1) e;
+			aux.writeCountersData();
+		}
+		if(e instanceof CrowdGateway1) {
+			CrowdGateway1 aux = (CrowdGateway1) e;
+			aux.writeCountersData();
+		}
+		if(e instanceof Gateway) {
+			Gateway aux = (Gateway) e;
+			aux.writeCountersData();
+		}
+		if(e instanceof Crowd1) {
+			Crowd1 aux = (Crowd1) e;
+			aux.writeCountersData();
+		}
+		if(e instanceof Crowd2) {
+			Crowd2 aux = (Crowd2) e;
+			aux.writeCountersData();
+		}
+		if(e instanceof Drone4) {
+			Drone4 aux = (Drone4) e;
+			aux.writeCountersData();
+		}
+		if(e instanceof Drone3) {
+			Drone3 aux = (Drone3) e;
+			aux.writeCountersData();
+		}
+		if(e instanceof Drone2) {
+			Drone2 aux = (Drone2) e;
+			aux.writeCountersData();
+		}
+		if(e instanceof Drone1) {
+			Drone1 aux = (Drone1) e;
+			aux.writeCountersData();
+		}
+		if(e instanceof Sensor4) {
+			Sensor4 aux = (Sensor4) e;
+			aux.writeCountersData();
+		}
+		if(e instanceof Sensor2) {
+			Sensor2 aux = (Sensor2) e;
+			aux.writeCountersData();
+		}
+		if(e instanceof Sensor3) {
+			Sensor3 aux = (Sensor3) e;
+			aux.writeCountersData();
+		}
+		if(e instanceof Sensor1) {
+			Sensor1 aux = (Sensor1) e;
+			aux.writeCountersData();
+		}
+	}
+%>!"
+DVS_143,Elaboration,Variables,"Declare six integer counters: countpowerThreshold, countCoordinateReceived, countWaterReceived, countwaterThreshold, countCaptureReceived and countRechargeReceived.","use countpowerThreshold with type int!
+use countCoordinateReceived with type int!
+use countWaterReceived with type int!
+use countwaterThreshold with type int!
+use countCaptureReceived with type int!
+use countRechargeReceived with type int!
+use mS4MESimulationInterface with type MS4MESimulationInterface!"
+DVS_144,Protocol,Port Configuration,"Set up the drone to accept Water, PowerLevel, Recharge, Coordinate, Capture and generate output in Recharge and Capture.","accepts input on Water with type WaterDepth!							
+accepts input on PowerLevel with type PowerLevel!							
+generates output on Recharge with type PowerLevel!	        			
+accepts input on Recharge with type PowerLevel!							
+accepts input on Coordinate with type DroneCoordinate!							
+accepts input on Capture with type Image!							
+generates output on Capture with type Image!"
+DVS_145,FDDEVS,Branching State Machine,"Define s0→s1→s2→s3. s3 branches: true branch (Coordinate/Water at s4/s5) and false branch (Recharge at s10/s11), converging back to s2.","to start 
+hold in s0 for time 1!
+from s0 go to s1! //UNOBSERVABLE : FIXME: system/mediator/architecture parameters may change this guard! 	
+hold in s1 for time 1!
+from s1 go to s2! //UNOBSERVABLE : Valuing 	
+hold in s2 for time 1!
+from s2 go to s3! //UNOBSERVABLE :  	
+hold in s3 for time 1!
+from s3 go to s4! //UNOBSERVABLE : IfThenElseBehavior (true case) 	
+passivate in s4!
+when in s4 and receive Coordinate go to s5!
+passivate in s5!
+when in s5 and receive Water go to s6!
+hold in s6 for time 1!
+from s6 go to s7! //UNOBSERVABLE : IfThenElseBehavior (true case) 	
+passivate in s7!
+when in s7 and receive Capture go to s8!
+hold in s8 for time 1!
+after s8 output Capture!
+from s8 go to s9!		
+from s3 go to s10! //UNOBSERVABLE : IfThenElseBehavior (false case) 	
+hold in s10 for time 1!
+after s10 output Recharge!
+from s10 go to s11!		
+passivate in s11!
+when in s11 and receive Recharge go to s12!
+hold in s9 for time 1!
+from s9 go to s2! //UNOBSERVABLE : Repeat loop 	
+hold in s12 for time 1!
+from s12 go to s2! //UNOBSERVABLE : Repeat loop"
+DVS_146,Elaboration,Non-deterministic,"In s3, if powerLevel > powerThreshold, increment the counter and go to s4; otherwise (explicit negation), go to s10.","internal event for s3
+<%
+if(powerLevel.getValue() > powerThreshold.getValue()) {
+	countpowerThreshold++;
+	passivateIn(""s4"");
+}
+if(!(powerLevel.getValue() > powerThreshold.getValue())) {
+	holdIn(""s10"",1.0);
+}
+%>!"
+DVS_147,Elaboration,Non-deterministic,"In the internal event of s6, check waterDepth against waterThreshold: if greater, go to s7; otherwise, go to s9 for 1 unit.","internal event for s6
+<%
+if(waterDepth.getValue() > waterThreshold.getValue()) {
+	countwaterThreshold++;
+	passivateIn(""s7"");
+}
+else {
+	holdIn(""s9"",1.0);
+}
+%>!"
+DVS_148,Elaboration,Tagged Block (Init),"In the internal event of s1, instantiate the thresholds: PowerThreshold (20) and WaterThreshold (300).",internal event for s1 <% powerThreshold = new PowerThreshold(new Integer(20)); waterThreshold = new WaterThreshold(new Integer(300)); %>!
+DVS_149,Elaboration,External Event,"In state s5, upon receiving Water, increment the counter, record the rendezvous using .value, and store the data.","external event for s5 with Water
+<%
+countWaterReceived++;
+mS4MESimulationInterface.rendezvous(messageList.get(0).getMessageTrace().getPort(), 
+	inWater,
+	messageList.get(0).getData().value);
+waterDepth = messageList.get(0).getData();
+%>!"
+DVS_150,Elaboration,External Event,"In state s11, upon receiving Recharge, increment the counter, log the rendezvous using .value, and store the powerLevel.","external event for s11 with Recharge
+<%
+countRechargeReceived++;
+mS4MESimulationInterface.rendezvous(messageList.get(0).getMessageTrace().getPort(), 
+	inRecharge,
+	messageList.get(0).getData().value);
+powerLevel = messageList.get(0).getData();
+%>!"
+DVS_151,Elaboration,Tagged Block (Output),"In the exit event of state s10, add the powerLevel object to the outRecharge port.","output event for s10 <% output.add(outRecharge, powerLevel); %>!"
+DVS_152,Elaboration,Additional Code,"Declare the model metadata: isMediator = false and typeCons = ""Drone"".","add additional code <% public final boolean isMediator = false; public final String typeCons = ""Drone""; %>!"
+DVS_153,Elaboration,Additional Code,Implement writeCountersData() by writing the six counters to the CSV and resetting them individually after writing.,"add additional code
+<%
+	private File getSrcModelsDirectory() {
+		URI dirUri = null;
+		File dir = null;
+		try {
+			dirUri = this.getClass().getResource(""."").toURI();
+			dir = new File(dirUri);
+		} catch (URISyntaxException e) {
+		}
+		while (dir != null && dir.getParentFile() != null) {
+			if (dir.getName().equalsIgnoreCase(""bin"")) {
+				return new File(dir.getParentFile(), ""src/Models"");
+			}
+			dir = dir.getParentFile();
+		}
+		return null;
+	}
+	public void writeCountersData() {
+		String dirPath = getSrcModelsDirectory().getAbsolutePath() + ""/result"";
+		
+		if(!new File(dirPath).exists()) {
+		new File(dirPath).mkdir();
+	}
+	try{
+		BufferedWriter writer = new BufferedWriter(new FileWriter(dirPath + ""/Result.csv"",true));
+		writer.write(getName() + "";"");
+		writer.write(""countCoordinateReceived = "" + Integer.toString(countCoordinateReceived) + "";"");
+		countCoordinateReceived = 0;
+		writer.write(""countWaterReceived = "" + Integer.toString(countWaterReceived) + "";"");
+		countWaterReceived = 0;
+		writer.write(""countCaptureReceived = "" + Integer.toString(countCaptureReceived) + "";"");
+		countCaptureReceived = 0;
+		writer.write(""countRechargeReceived = "" + Integer.toString(countRechargeReceived) + "";"");
+		countRechargeReceived = 0;
+		writer.write(""countpowerThreshold = "" + Integer.toString(countpowerThreshold) + "";"");
+		countpowerThreshold = 0;
+		writer.write(""countwaterThreshold = "" + Integer.toString(countwaterThreshold) + "";"");
+		countwaterThreshold = 0;
+		writer.newLine();
+		writer.close();
+	}catch(Exception e) {}
+	}
+%>!"
+DVS_154,FDDEVS,Dynamic Removal,"Set the model to accept the Remove message in states s0 to s12, always transitioning to the RemoveC state.","when in s0 and receive Remove go to RemoveC!
+when in s1 and receive Remove go to RemoveC!
+when in s2 and receive Remove go to RemoveC!
+when in s3 and receive Remove go to RemoveC!
+when in s4 and receive Remove go to RemoveC!
+when in s5 and receive Remove go to RemoveC!
+when in s6 and receive Remove go to RemoveC!
+when in s7 and receive Remove go to RemoveC!
+when in s8 and receive Remove go to RemoveC!
+when in s9 and receive Remove go to RemoveC!
+when in s10 and receive Remove go to RemoveC!
+when in s11 and receive Remove go to RemoveC!
+when in s12 and receive Remove go to RemoveC!"
+DVS_155,FDDEVS,Multi-Trigger State,"Define state s5 as passive with two alternative external transitions: upon receiving Capture, go to s6; upon receiving Recharge, go to s7, emit output and proceed to s8.","passivate in s5!
+when in s5 and receive Water go to s6!
+hold in s6 for time 1!
+from s6 go to s7! //UNOBSERVABLE : IfThenElseBehavior (true case)         
+passivate in s7!
+when in s7 and receive Capture go to s8!
+hold in s8 for time 1!
+after s8 output Capture!"
+DVS_156,Elaboration,Data Type,"Define a composite object MeasureData (coordinate and depth) and declare the corresponding variable, as well as a localBase list of type ArrayList<MeasureData>.",A MeasureData has coordinate and depth! the range of MeasureData's coordinate is SensorCoordinate! the range of MeasureData's depth is Depth! use measureData with type MeasureData! use localBase with type java.util.ArrayList<MeasureData>!
+DVS_157,FDDEVS,Output Before Passive,"Define the sequence s0→s1→s2. In s2, emit Coordinate before going to s3 (passive). Upon receiving Measure, follow s4→s5→s6, emit Alert and return to s3.","hold in s2 for time 1!
+after s2 output Coordinate!
+from s2 go to s3!		
+passivate in s3!
+when in s3 and receive Measure go to s4!
+hold in s4 for time 1!
+from s4 go to s5! //UNOBSERVABLE : DoExpr 	
+hold in s5 for time 1!
+from s5 go to s6! //UNOBSERVABLE : IfThenElseBehavior (true case) 	
+hold in s6 for time 1!
+after s6 output Alert!
+from s6 go to s7!		
+hold in s7 for time 1!
+from s7 go to s3! //UNOBSERVABLE : Repeat loop "
+DVS_158,Elaboration,Tagged Block (Internal),"In the internal event of state s4, implement the logic to add the measureData object to the localBase list for history accumulation.",internal event for s4 <% localBase.add(measureData); %>!
+DVS_159,FDDEVS,Sequential Passive Chain,"Define a machine where s0 (hold 1) goes to s1 passive waiting for Coordinate, which upon receiving goes to s2 passive waiting for Measure, which upon receiving goes to s3 (hold 1, emits Measure), s4 (hold 1) and returns to s2.",hold in s0 for time 1! from s0 go to s1! passivate in s1! when in s1 and receive Coordinate go to s2! passivate in s2! when in s2 and receive Measure go to s3! hold in s3 for time 1! after s3 output Measure! from s3 go to s4! hold in s4 for time 1! from s4 go to s2!
+DVS_160,Elaboration,Additional Code,"Implement a utility method distance that calculates the Euclidean distance between two SensorCoordinate using the sqrt and pow functions, returning a Distance object.","add additional code <% public Distance distance(SensorCoordinate onecoordinate, SensorCoordinate othercoordinate) { return new Distance((int)sqrt(((pow(((onecoordinate.x.value) - (othercoordinate.x.value)), 2)) + (pow(((onecoordinate.y.value) - (othercoordinate.y.value)), 2))))); } %>!"
+DVS_161,Elaboration,Variables,"Declare BufferedReader variables with default value null for reading files from each port: fileCrowdCoordinate, fileCoordinate, filePowerLevel, filePerception, fileVisualPerception, fileImage, and fileCapture.","use fileCrowdCoordinate with type BufferedReader and default ""null""! use fileCoordinate with type BufferedReader and default ""null""! use filePowerLevel with type BufferedReader and default ""null""! use filePerception with type BufferedReader and default ""null""! use fileVisualPerception with type BufferedReader and default ""null""! use fileImage with type BufferedReader and default ""null""! use fileCapture with type BufferedReader and default ""null""!"
+DVS_162,Elaboration,Tagged Block (Output),"Implement an output event that reads data from a CSV by port name: open the corresponding BufferedReader if null, read a line, reopen the file from the beginning if the end is reached, split by "";"" and build the output object from the fields — exemplified for PowerLevel (1 integer field) and for CrowdCoordinate (2 integer fields building Abscissa and Ordinate).","output event for s0
+<%
+String bufferReader;
+String[] splitedData = new String[0];
+int i = 0;
+try{
+	if(filePowerLevel == null) {
+		filePowerLevel = new BufferedReader(new FileReader(getModelsDirectory().getAbsolutePath() + ""/csv/"" + getName().replace(""StimuliGenerator"", """") + ""_PowerLevel.csv""));
+	}
+	bufferReader = filePowerLevel.readLine();
+	if(bufferReader == null || bufferReader == """") {
+		if(filePowerLevel != null) {
+			filePowerLevel.close();
+		}
+		filePowerLevel = null;
+		filePowerLevel = new BufferedReader(new FileReader(getModelsDirectory().getAbsolutePath() + ""/csv/"" + getName().replace(""StimuliGenerator"", """") + ""_PowerLevel.csv""));
+		bufferReader = filePowerLevel.readLine();
+	} 
+	if(bufferReader != null && bufferReader != """") {
+		splitedData = bufferReader.split("";"");
+	}
+}catch(Exception ex) {
+}
+powerLevel = new PowerLevel(new Integer(((i < splitedData.length) ? Integer.parseInt(splitedData[i]) : 0)));
+i++;
+	output.add(outPowerLevel, powerLevel);
+%>!"
+DVS_163,FDDEVS,Multi-Trigger Branching,"Define state s3 as passive with two triggers that lead to completely independent flows: NewACState goes to s4→s5→s3; TemperatureMeasure goes to s6, which branches into s7→s8→s3 (true branch) and s9→s10→s11→s3 (false branch with sub-branching).",passivate in s3! when in s3 and receive NewACState go to s4! hold in s4 for time 1! from s4 go to s5! when in s3 and receive TemperatureMeasure go to s6! hold in s6 for time 1! from s6 go to s7! hold in s7 for time 1! from s7 go to s8! from s6 go to s9! hold in s9 for time 1! from s9 go to s10! hold in s10 for time 1! from s10 go to s11! hold in s5 for time 1! from s5 go to s3! hold in s8 for time 1! from s8 go to s3! hold in s11 for time 1! from s11 go to s3!
+DVS_164,Elaboration,Tagged Block (Internal),"In the s4 internal event, extract fields from a received composite object (aCPacket) to update state variables: assign state from aCPacket.state.getValue() and tempThreshold from aCPacket.temp (direct access to the field, without a getter).","internal event for s4
+<%
+state = new ACState(aCPacket.state.getValue());
+tempThreshold = new Temperature(aCPacket.temp);
+%>!"
+DVS_165,Elaboration,Valuing,Make a direct instantiation without an explicit class name using new (new Integer(...)) in internal events.,activateAlarm = new (new Integer(1));
+DVS_166,Elaboration,Tagged Block (Output with setters),"Create an exit event that configures the object via multiple setters before adding it to the port, instead of emitting the object directly.",fireSprinklerPacket.setSactivate(x); fireSprinklerPacket.setArea(data.area); output.add(...);
+DVS_167,FDDEVS,Multi-Trigger (3+ gatilhos),"Create a passive state with three or more independent external triggers, each branch with multiple sequential outputs and internal sub-branches.",when in s1 and receive SmokeDetect go to s2! when in s1 and receive HeatDetect go to s13! when in s1 and receive ActivateAlarm go to s24!
+DVS_168,Elaboration,External Event (counter only),Create an external event that only increments the counter and extracts data — without a rendezvous call,countSmokeDetectReceived++; smokeDetectorPacket = messageList.get(0).getData();
+DVS_169,Elaboration,Non-deterministic — Stateful Conditional,"Create a branching condition that crosses the current input value with a variable persisted from a previous cycle, implementing state transition detection (on/off).","if(temperature.getValue() < 58 && heatDetection.getValue() == 1) { holdIn(""s7"",1.0); } else { holdIn(""s9"",1.0); }"
+DVS_170,FDDEVS,Sequential Passive Chain (2 gatilhos independentes),"Create two chained passive states, each waiting for a different external trigger and of a different type (Area → NewLampState), before starting the processing. The second passive state repeats the cycle at the end (loop). Distinct pattern from the DVS-161, which chains the same type of message.",passivate in s2! when in s2 and receive Area go to s3! passivate in s3! when in s3 and receive NewLampState go to s4! ... from s6 go to s3!
+DVS_171,Elaboration,Non-deterministic — Cross-message Field Comparison,"Create a branching condition that compares fields of two objects received in different passive states and at different moments of the cycle (area received in s2, lampPacket received in s3). No example in the dataset compares fields of two different external messages with each other.","if(area.getValue() == lampPacket.area.getValue()) { holdIn(""s5"",1.0); } else { holdIn(""s6"",1.0); }"
+DVS_172,Elaboration,Tagged Block (Output) — Multi-setter with cross-message field,"Create an output event that combines two setters using data from two external messages received in distinct passive states (area from s1, illuminance from s2) to assemble the output packet before emitting it. It merges the ""output with setters"" pattern (previous gap) with the ""cross-message field"" pattern — no example in the dataset combines both at the same time.","lightSensorPacket.setIlluminanceValue(illuminance); lightSensorPacket.setArea(area); output.add(outLightSensorData, lightSensorPacket);"
+DVS_173,Protocol,Port Configuration,"Set up a model with duplicate declared ports — PresenceSensorData (PresenceSensorPacket) appears twice as input, and ActivateAlarm is simultaneously input and output of the same type.",accepts input on PresenceSensorData with type PresenceSensorPacket! accepts input on TemperatureData with type ThermometerPacket! generates output on NewACState with type ACPacket! accepts input on PresenceSensorData with type PresenceSensorPacket! generates output on NewLampState with type LampPacket! accepts input on SmokeDetect with type SmokeDetectorPacket! generates output on ActivateAlarm with type ActivateAlarm! accepts input on ActivateAlarm with type ActivateAlarm! generates output on ActivateSprinkler with type FireSprinklerPacket!
+DVS_174,Elaboration,Tagged Block (Output),Implement an output event that builds the output object via setters before sending it to the port — exemplified by lampPacket where setState and setArea are called with values extracted from the input packet before output.add.,"output event for s6 <% lampPacket.setState(1); lampPacket.setArea(presenceSensorPacket.area); output.add(outNewLampState, lampPacket); %>!"
+DVS_175,Elaboration,Tagged Block (Internal),"In the internal event of s3, apply an area-based filtering guard: compare the area field of the received packet with the local area variable via getter on both sides — if equal, proceed to s4; otherwise, jump directly to s7 (discarding the packet without processing).","internal event for s3 <% if(fireSprinklerPacket.area.getValue() == area.getValue()) { holdIn(""s4"",1.0); } else { holdIn(""s7"",1.0); } %>!"
+DVS_176,FDDEVS,Multi-Trigger Relay,"Define a passive state s1 with four independent triggers, each receiving a different type (ActivateAlarm, ActivateSprinkler, SmokeDetect, HeatDetect), transitioning to parallel states (s2, s4, s6, s8) that immediately emit the same data received and return to s1 via a hold of 1 unit.",passivate in s1! when in s1 and receive ActivateAlarm go to s2! hold in s2 for time 1! after s2 output ActivateAlarm! from s2 go to s3! when in s1 and receive ActivateSprinkler go to s4! hold in s4 for time 1! after s4 output ActivateSprinkler! from s4 go to s5! when in s1 and receive SmokeDetect go to s6! hold in s6 for time 1! after s6 output SmokeDetect! from s6 go to s7! when in s1 and receive HeatDetect go to s8! hold in s8 for time 1! after s8 output HeatDetect! from s8 go to s9! hold in s3 for time 1! from s3 go to s1! hold in s5 for time 1! from s5 go to s1! hold in s7 for time 1! from s7 go to s1! hold in s9 for time 1! from s9 go to s1!
+DVS_177,FDDEVS,Multi-Branch Hold,"Define a hold state s1 with three simultaneous internal transitions for independent parallel branches (s2→s3, s4→s5, s6→s7), all returning to s1, with no external trigger or exit event — pure structural transmitter model.",hold in s1 for time 1! from s1 go to s2! hold in s2 for time 1! from s2 go to s3! from s1 go to s4! hold in s4 for time 1! from s4 go to s5! from s1 go to s6! hold in s6 for time 1! from s6 go to s7! hold in s3 for time 1! from s3 go to s1! hold in s5 for time 1! from s5 go to s1! hold in s7 for time 1! from s7 go to s1!
+DVS_178,Elaboration,Tagged Block (Output) — Multi-setter with cross-message field,"Create an output event that combines two setters using data from two external messages received in distinct passive states (area from s1, illuminance from s2) to assemble the output packet before emitting it. It merges the ""output with setters"" pattern (previous gap) with the ""cross-message field"" pattern — no example in the dataset combines both at the same time.","lightSensorPacket.setIlluminanceValue(illuminance); lightSensorPacket.setArea(area); output.add(outLightSensorData, lightSensorPacket);"
+DVS_179,Elaboration,Variables,"Declare control variables for the lighting system: illuminance (Integer), area (Area), and the transport object lightSensorPacket (LightSensorPacket).",use illuminance with type Integer! use area with type Area! use lightSensorPacket with type LightSensorPacket!
+DVS_180,Protocol,Port Configuration,"Configure the light sensor to accept inputs in Area and Illuminance, and generate output in LightSensorData (type LightSensorPacket).",accepts input on Area with type Area! accepts input on Illuminance with type Illuminance! generates output on LightSensorData with type LightSensorPacket!
+DVS_181,FDDEVS,Sequential Passive Chain,"Define the sequence for the sensor: s0 (hold 1) -> s1 passive waiting for Area -> s2 passive waiting for Illuminance -> s3 (hold 1, emits LightSensorData) and returns to s1.",hold in s0 for time 1! from s0 go to s1! passivate in s1! when in s1 and receive Area go to s2! passivate in s2! when in s2 and receive Illuminance go to s3! hold in s3 for time 1! after s3 output LightSensorData! from s3 go to s1!
