@@ -42,11 +42,8 @@ EVAL_MODELS = [
     "gpt-5.3-codex",
     "gemini-2.5-flash",
     "codellama-7b",
-    "codellama-13b",
     "codellama-34b",
-    "Magicoder_S_CL_7B",
     "Wizardcoder33b",
-    "Wizardcoder34b",
 ]  # default to all available models
 
 # Models that call replicate.run (require REPLICATE_API_TOKEN; do not confuse with OpenAI/Gemini)
@@ -665,12 +662,6 @@ def setup_gpt_client():
     gpt_client= OpenAI(api_key=api_key)
 
 
-def setup_magicoder_params():
-    if "MAGICODER_SAGEMAKER_ENDPOINT" not in os.environ:
-        endpoint = input("Enter Magicoder Sagemaker endpoint:") # E.g., "huggingface-pytorch-tgi-inference-2024-05-09-15-37-08-362"
-        os.environ["MAGICODER_SAGEMAKER_ENDPOINT"] = endpoint
-
-
 @click.command()
 @click.option(
     "--samples",
@@ -768,13 +759,10 @@ def main(
     if "gpt-5.4" in models or "gpt-5.3-codex" in models:
         setup_gpt_client()
 
-    if "Magicoder_S_CL_7B" in models:
-        setup_magicoder_params()
-
     # Setup retriever:
     if "RAG" in PROMPT_ENHANCEMENT_STRAT:
         Retriever = llama_index_retriever.Retriever(
-            stored_index="../retriever/aws-index",
+            stored_index="../retriever/devs-index",
             path="../docs/r",
         )
     else:
