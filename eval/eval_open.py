@@ -621,7 +621,7 @@ def model_evaluation(
                     ),
                 )
             df.at[index, "LLM Plannable? #" + str(i)] = x["devs_plan_success"]
-            df.at[index, "LLM Correct? #" + str(i)] = x["opa_evaluation_result"]
+            df.at[index, "LLM Correct? #" + str(i)] = x["devs_evaluation_result"]
             df.at[index, "LLM Notes #" + str(i)] = x["notes"]
             logging.info("Plan Result Summary:")
             for key, value in x.items():
@@ -811,13 +811,10 @@ def main(
     if "gpt-5.4" in models or "gpt-5.3-codex" in models:
         setup_gpt_client()
 
-    if "Magicoder_S_CL_7B" in models:
-        setup_magicoder_params()
-
     # Setup retriever:
     if "RAG" in PROMPT_ENHANCEMENT_STRAT:
         Retriever = llama_index_retriever.Retriever(
-            stored_index="../retriever/aws-index",
+            stored_index="../retriever/devs-index",
             path="../docs/r",
         )
     else:
