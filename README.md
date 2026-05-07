@@ -88,7 +88,7 @@ Available `--strategy` options: `zero_shot`, `few_shot_2`, `few_shot_4`, `cot`,
 ### 3. Run RAG setup
 
 ```bash
-python rag/build_index.py
+python rag/llama_index_retriever.py
 python eval/run_eval.py --model gpt-5.4 --strategy rag --output results/gpt54_rag.csv
 ```
 
@@ -100,8 +100,14 @@ python eval/compute_metrics.py --results results/gpt54_cot.csv
 
 This outputs pass@1, BLEU, and CodeBERTScore scores per model and category.
 
-> **Note:** Semantic evaluation (Phase 2) requires MS4 Me installed locally.
-> See [ms4systems.com](http://ms4systems.com) for installation instructions.
+### 5. MS4Me 
+Semantic evaluation (Phase 2) requires MS4 Me installed locally with a valid license. To set it up:
+
+1. Download and run the MS4 Me `.exe` installer on Windows 7 or higher (64-bit).
+2. Obtain a license certificate file from [ms4systems.com](https://ms4systems.com) or by contacting `support@ms4systems.com`.
+3. On first launch, the Licensing Wizard will open — click **Next** and browse to your license file.
+4. Click **Install License Certificate** and then **Next** to complete activation.
+5. If a Model Store login window appears on restart, click **Cancel** — MS4 Me is ready to use.
 
 ## Prompting Strategies
 
